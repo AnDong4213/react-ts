@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("var isDone1 = false;\r\nconsole.log(isDone1);\r\n\n\n//# sourceURL=webpack:///./src/index.react.ts?");
+eval("var isDone1 = false;\r\nvar num = 18;\r\nvar num2 = 4104;\r\nvar x = [9, 'oo'];\r\nvar per = {\r\n    id: 9,\r\n    name: 'yo'\r\n};\r\nconsole.log(per);\r\n\n\n//# sourceURL=webpack:///./src/index.react.ts?");
 
 /***/ })
 
