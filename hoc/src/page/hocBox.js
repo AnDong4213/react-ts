@@ -16,14 +16,28 @@ const withStorage = (WrappedComponent) => {
       alert(tip);
     };
 
+    // 通过 refs 获取组件实例
+    proc(wrappedComponentInstance) {
+      if (wrappedComponentInstance) {
+        wrappedComponentInstance.method();
+      }
+    }
+
     render() {
       console.log("App.js传来的props", this.props);
+      const newProps = {
+        user: "currentLoggedInUser"
+      };
+      const props = Object.assign({}, this.props, {
+        ref: this.proc.bind(this)
+      });
       return (
         <WrappedComponent
           _alert={this._alert}
           _renderContent={this._renderContent}
           data={this.state.data}
-          {...this.props}
+          {...props}
+          {...newProps}
         />
       );
     }

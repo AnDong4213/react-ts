@@ -5,7 +5,7 @@ class ReverseInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      value: "哈哈"
     };
   }
   // 这个 地方可写可不写
@@ -16,10 +16,12 @@ class ReverseInput extends Component {
 
   render() {
     const { value } = this.state;
+    console.log("this.props22", this.props);
     return (
       <div>
         <input onChange={this.valueChange} value={value} />
         <button onClick={this.toSubmit}>提交</button>
+        <h1>{value}</h1>
       </div>
     );
   }

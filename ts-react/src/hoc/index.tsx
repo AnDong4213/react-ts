@@ -1,26 +1,32 @@
 import React from "react";
-import './index.css'
-
-// import A from './components/A'
-import B from './components/B'
-import C from './components/C'
 
 type StateType = {
   num: number;
 };
 type PropType = {
   num: number;
+  age: string;
 };
 interface App {
   state: StateType;
   props: PropType;
 }
 
+/* interface IProps {
+  num: number;
+  age: string;
+}
+interface IState {
+  num: number;
+} */
+
+// 两种类型约束方式
+// class App extends React.Component<IProps, IState> {
 class App extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      num: 23
+      num: 233242
     };
   }
 
@@ -29,11 +35,10 @@ class App extends React.Component {
   }
 
   render() {
+    // console.log(this.props);
     return (
-      <div className='App'>
-        {/* <A /> */}
-        <B />
-        <C />
+      <div className="App">
+        <h1>{this.state.num}</h1>
       </div>
     );
   }

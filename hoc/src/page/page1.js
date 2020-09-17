@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import HocBox from "./hocBox";
 
 class Page1 extends Component {
-  render() {
+  method() {
     console.log("this.props", this.props);
+  }
+  render() {
     return (
       <>
         <h2>{this.props.data}</h2>
-        <div>这是组件Page1自己的内容</div>
+        <div>
+          <i style={{ color: "orange" }}>这是组件Page1自己的内容</i>
+        </div>
         {this.props._renderContent()}
         <div>
           <button
@@ -17,6 +21,9 @@ class Page1 extends Component {
           >
             点击事件
           </button>
+          <p>
+            -------------------------------------------------------------------
+          </p>
         </div>
       </>
     );

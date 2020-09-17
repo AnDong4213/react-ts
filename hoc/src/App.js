@@ -5,6 +5,7 @@ import "./App.css";
 import HOC2 from "./hoc2/index.js";
 import Page1 from "./page/page1"; //也可以引入page2
 import ReverseInput from "./prototype/reverseInput";
+import PpELE from "./hoc2/ppELE.js";
 
 /* function App() {
   return (
@@ -24,9 +25,10 @@ class App extends React.Component {
     const { name } = this.state;
     return (
       <div className="App">
-        <HOC2 name={name} age={25} />
-        {/* <Page1 name={name} /> */}
-        <ReverseInput name={name} />
+        {/* <HOC2 name={name} age={25} /> */}
+        <Page1 name={name} />
+        <ReverseInput name={name} loggedIn={true} />
+        <PpELE name={name} />
       </div>
     );
   }
