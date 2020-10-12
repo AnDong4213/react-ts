@@ -215,9 +215,75 @@ function getLength(input: number | string): number {
   }
 }
 
+console.log('-------------------------------------------------------------------')
 
+class Employee {
+  constructor() {
 
+  }
 
+  // 只带有 get 不带有 set 的存取器自动被推断为 readonly
+  get fullName() {
+    return 222
+  }
+}
+
+const FN = new Employee();
+console.log(FN.fullName)
+// FN.fullName = 99;   // 无法分配到 "fullName" ，因为它是只读属性。
+
+// 抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。不同于接口，抽象类可以包含成员的实现细节。 abstract 关键字是用于定义抽象类和在抽象类内部定义抽象方法。
+abstract class Kk {
+  constructor() {
+    
+  }
+}
+
+// 抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。 抽象方法的语法与接口方法相似。两者都是定义方法签名但不包含方法体。 然而，抽象方法必须包含 abstract 关键字并且可以包含访问修饰符。
+abstract class Department  {
+  name: string
+
+  constructor(name: string) {
+    this.name  = name
+  }
+
+  printName(): void {
+    console.log('Department name: ' + this.name)
+  }
+
+  abstract printMeeting(): void;
+}
+
+class AccountingDepartment extends Department {
+  constructor() {
+    super('aa')
+  }
+
+  printMeeting(): void {
+    console.log('The Accounting Department meets each Monday at 10am.')
+  }
+
+  generateReports(): void {
+    console.log('Generating accounting reports...')
+  }
+}
+
+let department1: Department;
+// department1 = new Department();   // 无法创建抽象类的实例。
+department1 = new AccountingDepartment();
+department1.printName();
+department1.printMeeting()
+// department1.generateReports();   //  类型“Department”上不存在属性“generateReports”。
+
+// 类定义会创建两个东西：类的实例类型和一个构造函数。 因为类可以创建出类型，所以你能够在允许使用接口的地方使用类
+class Point2 {
+  x: number;
+  y: number
+}
+interface Point3d extends Point2 {
+  z: string
+}
+let point3d: Point3d = {x: 1, y: 2, z: '3'}
 
 
 

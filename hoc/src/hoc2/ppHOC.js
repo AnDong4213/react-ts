@@ -16,7 +16,7 @@ function ppHOC(WrappedComponent) {
       });
     }
     render() {
-      // console.log(this.props);
+      console.log("this.props--ppppppppp", this.props);
       const newProps = {
         name: {
           value: this.state.name,

@@ -5,7 +5,7 @@ import ppHOC from "./ppHOC";
 @ppHOC
 class Example extends Component {
   render() {
-    return <input value="pp" name="name" {...this.props.name} />;
+    return <input {...this.props.name} />;
   }
 }
 export default Example;
