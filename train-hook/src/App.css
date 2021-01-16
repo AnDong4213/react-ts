@@ -7,6 +7,19 @@
   pointer-events: none;
 }
 
+ul, li {
+  list-style: none;
+}
+
+.router-demo1 ul li {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.router-switch {
+  margin: 20px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
