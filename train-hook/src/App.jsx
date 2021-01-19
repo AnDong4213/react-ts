@@ -15,6 +15,8 @@ const CreateContext = lazy(() =>
 const LazySuspense = lazy(() =>
   import(/* webpackChunkName: 'lazy-suspense' */ "./pages/lazy-suspense")
 );
+const Memo = lazy(() => import(/* webpackChunkName: 'memo' */ "./pages/memo"));
+const Hook = lazy(() => import(/* webpackChunkName: 'hook' */ "./pages/hook"));
 
 class App extends Component {
   render() {
@@ -37,6 +39,12 @@ class App extends Component {
             <li>
               <Link to="/lazySuspense">lazySuspense</Link>
             </li>
+            <li>
+              <Link to="/memo">Memo</Link>
+            </li>
+            <li>
+              <Link to="/hook">Hook</Link>
+            </li>
           </ul>
 
           <hr />
@@ -58,6 +66,12 @@ class App extends Component {
                 </Route>
                 <Route path="/lazySuspense">
                   <LazySuspense />
+                </Route>
+                <Route path="/memo">
+                  <Memo />
+                </Route>
+                <Route path="/hook">
+                  <Hook />
                 </Route>
               </Switch>
             </Suspense>
