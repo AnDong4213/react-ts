@@ -2,6 +2,7 @@ import React, { Component, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
+// 在代码中用import动态导入一个模块，Webpack 解析到该语法时，会自动进行代码分割，把import要导入的模块极其依赖打成一个独立的js文件，默认情况下不会加载，只有用到的时候才去加载
 const Home = lazy(() => import(/* webpackChunkName: 'home' */ "./pages/home"));
 const About = lazy(() =>
   import(/* webpackChunkName: 'about' */ "./pages/about")

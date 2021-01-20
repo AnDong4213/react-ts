@@ -61,7 +61,7 @@ class Memo extends Component {
     });
   }
 
-  // callback() {}
+  // callback() {}  // 类成员函数导致this不正确，不得不使用类属性来声明回调函数
   callback = () => {};
 }
 
