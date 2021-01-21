@@ -9,6 +9,10 @@ class CreateContext extends Component {
     online: false
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps, prevState);
+  }
+
   render() {
     const { battery, online } = this.state;
     return (

@@ -92,6 +92,13 @@
       "last 1 safari version"
     ]
   },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
   "jest": {
     "roots": [
       "<rootDir>/src"
