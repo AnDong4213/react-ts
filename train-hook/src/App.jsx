@@ -17,7 +17,9 @@ const LazySuspense = lazy(() =>
   import(/* webpackChunkName: 'lazy-suspense' */ "./pages/lazy-suspense")
 );
 const Memo = lazy(() => import(/* webpackChunkName: 'memo' */ "./pages/memo"));
-const Hook = lazy(() => import(/* webpackChunkName: 'hook' */ "./pages/hook"));
+const Hook = lazy(() =>
+  import(/* webpackChunkName: 'hook' */ "./pages/hook/index2")
+);
 
 class App extends Component {
   render() {

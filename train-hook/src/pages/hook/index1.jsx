@@ -1,14 +1,18 @@
 import React, {
   Component,
+  PureComponent,
   useState,
   useEffect,
   useContext,
   useMemo,
   memo,
-  useCallback
+  useCallback,
+  useRef
 } from "react";
 import { CountContext, ParentContext } from "./context";
 // memo针对的是组件的渲染是否重复执行而useMemo则定义了一段函数逻辑是否重复执行，都是利用同样的算法来判定依赖是否发生改变，决定是否触发特定逻辑，仅仅用来做性能优化用
+// memo函数根据属性来决定是否重新渲染组件，useMemo可以根据指定的依赖来决定一段函数逻辑是否重新执行，从而优化性能
+// ref 获取子组件或者dom元素的句柄  渲染周期之间共享数据的存储
 
 function Hook(props, state) {
   // const [count, setCount] = useState(0);
@@ -16,14 +20,13 @@ function Hook(props, state) {
     console.log(props, state);
     return 0;
   });
+  const [clickCount, setClickCount] = useState(0);
   const [size, setSize] = useState({
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
   });
-
-  useEffect(() => {
-    // console.log("count:", count);
-  }, [count]);
+  const counterRef = useRef(null);
+  let it = useRef();
 
   useEffect(() => {
     document.title = `You clicked ${count} times`;
@@ -79,10 +82,29 @@ function Hook(props, state) {
 
   // 用useCallback进行优化，如果useMemo返回的是一个函数，可以直接用useCallback来省略顶层的函数，useMemo的一个变体
   // useMemo(() => fn) --> useCallback(fn)
+  // 使用useCallback不能阻止创建新的函数，但这个函数不一定会被返回，很可能创建出来就抛弃不用了，解决的是传入子组件的函数参数过度变化导致子组件过度渲染的问题
   const onClick = useCallback(() => {
-    console.log(99);
+    setClickCount((clickCount) => {
+      return clickCount + 1;
+    });
+    // 如果这样写的话，依赖数组里不用写clickCount了
+
+    // console.log("counterRef", counterRef.current);
+    counterRef.current.speak();
+  }, [counterRef]);
+
+  /* useEffect(() => {
+    setInterval(() => {
+      setCount(() => count + 1);
+    }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("onClick", onClick);
+
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it.current);
+    }
+  }); */
 
   return (
     <div>
@@ -102,7 +124,8 @@ function Hook(props, state) {
         </CountContext.Provider>
       </ParentContext.Provider>
       <p>-----------------------------------------------------------</p>
-      <Counter2 count={double} onClick={onClick} />
+      {clickCount}
+      <Counter2 ref={counterRef} count={double} onClick={onClick} />
       <p>double: {double}</p>
     </div>
   );
@@ -137,13 +160,31 @@ function Counter() {
   );
 } */
 
-const Counter2 = memo((props) => {
+/* const Counter2 = memo((props) => {
   console.log("Counter render");
   return (
     <div>
-      <h3 onClick={props.onClick}>{props.count}</h3>
+      <h3 style={{ color: "red" }} onClick={props.onClick}>
+        {props.count}
+      </h3>
     </div>
   );
-});
+}); */
+
+class Counter2 extends PureComponent {
+  speak() {
+    console.log("this.props.count", this.props.count);
+  }
+  render() {
+    const { props } = this;
+    return (
+      <div>
+        <h3 style={{ color: "red" }} onClick={props.onClick}>
+          {props.count}
+        </h3>
+      </div>
+    );
+  }
+}
 
 export default Hook;
