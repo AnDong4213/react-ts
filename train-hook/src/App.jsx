@@ -20,6 +20,9 @@ const Memo = lazy(() => import(/* webpackChunkName: 'memo' */ "./pages/memo"));
 const Hook = lazy(() =>
   import(/* webpackChunkName: 'hook' */ "./pages/hook/index2")
 );
+const Redux = lazy(() =>
+  import(/* webpackChunkName: 'redux' */ "./pages/redux/index1")
+);
 
 class App extends Component {
   render() {
@@ -48,6 +51,9 @@ class App extends Component {
             <li>
               <Link to="/hook">Hook</Link>
             </li>
+            <li>
+              <Link to="/redux">Redux</Link>
+            </li>
           </ul>
 
           <hr />
@@ -75,6 +81,9 @@ class App extends Component {
                 </Route>
                 <Route path="/hook">
                   <Hook />
+                </Route>
+                <Route path="/redux">
+                  <Redux />
                 </Route>
               </Switch>
             </Suspense>
