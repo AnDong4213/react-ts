@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import { createSet, createAdd, createRemove, createToggle } from "./actions";
 
 import "./index.css";
 
@@ -6,7 +7,7 @@ let idSeq = Date.now();
 const LS_KEY = "_$-todos_";
 
 function Control(props) {
-  const { addTodo, count, onClick } = props;
+  const { dispatch } = props;
   const inputRef = useRef();
 
   const onSubmit = (e) => {
@@ -16,18 +17,20 @@ function Control(props) {
     if (!newText.length) {
       return;
     }
-    addTodo({
-      id: ++idSeq,
-      text: newText,
-      complete: false
-    });
+    dispatch(
+      createAdd({
+        id: ++idSeq,
+        text: newText,
+        complete: false
+      })
+    );
 
     inputRef.current.value = "";
   };
 
   return (
     <div className="control">
-      <h1 onClick={onClick}>todos ♬-{count}</h1>
+      <h1>todos</h1>
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -43,16 +46,15 @@ function Control(props) {
 function TodoItem(props) {
   const {
     todo: { id, text, complete },
-    toggleTodo,
-    removeTodo
+    dispatch
   } = props;
 
   const onChange = () => {
-    toggleTodo(id);
+    dispatch(createToggle(id));
   };
 
   const onRemove = () => {
-    removeTodo(id);
+    dispatch(createRemove(id));
   };
 
   return (
@@ -64,7 +66,7 @@ function TodoItem(props) {
   );
 }
 function Todos(props) {
-  const { toggleTodo, removeTodo, todos } = props;
+  const { dispatch, todos } = props;
   return (
     <ul>
       {todos.map((todo) => (
@@ -72,8 +74,7 @@ function Todos(props) {
           className="todos"
           key={todo.id}
           todo={todo}
-          toggleTodo={toggleTodo}
-          removeTodo={removeTodo}
+          dispatch={dispatch}
         ></TodoItem>
       ))}
     </ul>
@@ -82,38 +83,40 @@ function Todos(props) {
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
-  const [count, setCount] = useState(0);
 
-  const onClick = () => {
-    setCount(count + 1);
-  };
+  const dispatch = useCallback((action) => {
+    const { type, payload } = action;
+    switch (type) {
+      case "set":
+        setTodos(payload);
+        break;
+      case "add":
+        setTodos((todos) => [...todos, payload]);
+        break;
+      case "remove":
+        setTodos((todos) => todos.filter((todo) => todo.id !== payload));
+        break;
+      case "toggle":
+        setTodos((todos) =>
+          todos.map((todo) =>
+            todo.id === payload
+              ? {
+                  ...todo,
+                  complete: !todo.complete
+                }
+              : todo
+          )
+        );
+        break;
+      default:
+        break;
+    }
+  }, []);
 
-  const addTodo = (todo) => {
-    console.log("addTodo");
-    setTodos((todos) => [...todos, todo]);
-  };
-
-  const removeTodo = (id) => {
-    console.log("removeTodo");
-    setTodos((todos) => todos.filter((todo) => todo.id !== id));
-  };
-
-  const toggleTodo = (id) => {
-    console.log("toggleTodo");
-    setTodos((todos) =>
-      todos.map((todo) =>
-        todo.id === id
-          ? {
-              ...todo,
-              complete: !todo.complete
-            }
-          : todo
-      )
-    );
-  };
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY));
-    setTodos(todos);
+    dispatch(createSet(todos));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -122,9 +125,8 @@ function TodoList() {
 
   return (
     <div className="todo-list">
-      <button>{count}</button>
-      <Control onClick={onClick} count={count} addTodo={addTodo} />
-      <Todos todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
+      <Control dispatch={dispatch} />
+      <Todos todos={todos} dispatch={dispatch} />
     </div>
   );
 }

@@ -10,8 +10,10 @@ import React, {
   useRef
 } from "react";
 import { CountContext, ParentContext } from "./context";
+// memo用来优化函数组件的重渲染行为，当传入属性值都不变的情况下，就不会触发组件的重渲染
 // memo针对的是组件的渲染是否重复执行而useMemo则定义了一段函数逻辑是否重复执行，都是利用同样的算法来判定依赖是否发生改变，决定是否触发特定逻辑，仅仅用来做性能优化用
 // memo函数根据属性来决定是否重新渲染组件，useMemo可以根据指定的依赖来决定一段函数逻辑是否重新执行，从而优化性能
+// useEffect执行的是副作用，在渲染之后运行， useMemo是希望有返回值的，而返回值可直接参与渲染，因此在渲染期间完成的
 // ref 获取子组件或者dom元素的句柄  渲染周期之间共享数据的存储
 
 function Hook(props, state) {
@@ -26,7 +28,6 @@ function Hook(props, state) {
     height: document.documentElement.clientHeight
   });
   const counterRef = useRef(null);
-  let it = useRef();
 
   useEffect(() => {
     document.title = `You clicked ${count} times`;
@@ -93,19 +94,6 @@ function Hook(props, state) {
     counterRef.current.speak();
   }, [counterRef]);
 
-  /* useEffect(() => {
-    setInterval(() => {
-      setCount(() => count + 1);
-    }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (count >= 10) {
-      clearInterval(it.current);
-    }
-  }); */
-
   return (
     <div>
       <button type="button" onClick={() => setCount(count + 1)}>
@@ -126,7 +114,6 @@ function Hook(props, state) {
       <p>-----------------------------------------------------------</p>
       {clickCount}
       <Counter2 ref={counterRef} count={double} onClick={onClick} />
-      <p>double: {double}</p>
     </div>
   );
 }
@@ -136,7 +123,7 @@ class Bar extends Component {
 
   render() {
     const count = this.context;
-    return <h3>{count}</h3>;
+    return <h3>Bar-{count}</h3>;
   }
 }
 
@@ -145,8 +132,8 @@ function Counter() {
   const parcount = useContext(ParentContext);
   return (
     <div>
-      <h3>{count}</h3>
-      <h3>{parcount}</h3>
+      <h3>useContext--{count}</h3>
+      <h3>useContext--{parcount}</h3>
     </div>
   );
 }
@@ -180,7 +167,7 @@ class Counter2 extends PureComponent {
     return (
       <div>
         <h3 style={{ color: "red" }} onClick={props.onClick}>
-          {props.count}
+          double: {props.count}
         </h3>
       </div>
     );
