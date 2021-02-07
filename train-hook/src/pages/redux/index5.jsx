@@ -19,6 +19,20 @@ function bindActionCreators(actionCreators, dispatch) {
   return ret;
 }
 
+function combineReducers(reducers) {
+  return function reducer(state, action) {
+    const changed = {};
+    for (let key in reducers) {
+      changed[key] = reducers[key](state[key], action);
+    }
+
+    return {
+      ...state,
+      ...changed
+    };
+  };
+}
+
 function Control(props) {
   console.log("props", props);
   const { addTodo } = props;
@@ -98,35 +112,28 @@ function Todos(props) {
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
+  const [incrementCount, setIncrementCount] = useState(0);
 
-  const dispatch = useCallback((action) => {
-    const { type, payload } = action;
-    switch (type) {
-      case "set":
-        setTodos(payload);
-        break;
-      case "add":
-        setTodos((todos) => [...todos, payload]);
-        break;
-      case "remove":
-        setTodos((todos) => todos.filter((todo) => todo.id !== payload));
-        break;
-      case "toggle":
-        setTodos((todos) =>
-          todos.map((todo) =>
-            todo.id === payload
-              ? {
-                  ...todo,
-                  complete: !todo.complete
-                }
-              : todo
-          )
-        );
-        break;
-      default:
-        break;
-    }
-  }, []);
+  // useEffect(() => {}, []);
+
+  const dispatch = useCallback(
+    (action) => {
+      const state = {
+        todos,
+        incrementCount
+      };
+      const setters = {
+        todos: setTodos,
+        incrementCount: setIncrementCount
+      };
+
+      const newState = reducer(state, action);
+      for (let key in newState) {
+        setters[key](newState[key]);
+      }
+    },
+    [todos, incrementCount]
+  );
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY));
@@ -151,5 +158,81 @@ function TodoList() {
     </div>
   );
 }
+
+const reducers = {
+  todos(state, action) {
+    const { type, payload } = action;
+    switch (type) {
+      case "set":
+        return payload;
+      case "add":
+        return [...state, payload];
+      case "remove":
+        return state.filter((todo) => todo.id !== payload);
+      case "toggle":
+        return state.map((todo) =>
+          todo.id === payload
+            ? {
+                ...todo,
+                complete: !todo.complete
+              }
+            : todo
+        );
+      default:
+        return state;
+    }
+  },
+  incrementCount(state, action) {
+    const { type } = action;
+    switch (type) {
+      case "set":
+      case "add":
+        return state + 1;
+      default:
+        return state;
+    }
+  }
+};
+
+const reducer = combineReducers(reducers);
+
+/* function reducer(state, action) {
+  const { type, payload } = action;
+  const { todos, incrementCount } = state;
+
+  switch (type) {
+    case "set":
+      return {
+        ...state,
+        todos: payload,
+        incrementCount: incrementCount + 1
+      };
+    case "add":
+      return {
+        ...state,
+        todos: [...todos, payload],
+        incrementCount: incrementCount + 1
+      };
+    case "remove":
+      return {
+        ...state,
+        todos: todos.filter((todo) => todo.id !== payload)
+      };
+    case "toggle":
+      return {
+        ...state,
+        todos: todos.map((todo) =>
+          todo.id === payload
+            ? {
+                ...todo,
+                complete: !todo.complete
+              }
+            : todo
+        )
+      };
+    default:
+      return state;
+  }
+} */
 
 export default TodoList;

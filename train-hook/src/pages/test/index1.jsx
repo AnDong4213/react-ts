@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { Component, PureComponent, useEffect, useState } from "react";
 
-class Child extends PureComponent {
+/* class Child extends PureComponent {
   render() {
     console.log(9900);
     return (
@@ -9,9 +10,9 @@ class Child extends PureComponent {
       </div>
     );
   }
-}
+} */
 
-class Test extends Component {
+/* class Test extends Component {
   state = {
     count: 1
   };
@@ -25,7 +26,7 @@ class Test extends Component {
       </div>
     );
   }
-}
+} */
 
 function Test2() {
   const [count, setCount] = useState(1);

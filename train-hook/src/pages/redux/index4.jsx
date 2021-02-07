@@ -98,15 +98,20 @@ function Todos(props) {
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
+  const [incrementCount, setIncrementCount] = useState(0);
 
-  const dispatch = useCallback((action) => {
+  useEffect(() => {}, []);
+
+  /* const dispatch = useCallback((action) => {
     const { type, payload } = action;
     switch (type) {
       case "set":
         setTodos(payload);
+        setIncrementCount((c) => c + 1);
         break;
       case "add":
         setTodos((todos) => [...todos, payload]);
+        setIncrementCount((c) => c + 1);
         break;
       case "remove":
         setTodos((todos) => todos.filter((todo) => todo.id !== payload));
@@ -126,7 +131,65 @@ function TodoList() {
       default:
         break;
     }
-  }, []);
+  }, []); */
+
+  const dispatch = useCallback(
+    (action) => {
+      const state = {
+        todos,
+        incrementCount
+      };
+      const setters = {
+        todos: setTodos,
+        incrementCount: setIncrementCount
+      };
+
+      const newState = reducer(state, action);
+      for (let key in newState) {
+        setters[key](newState[key]);
+      }
+    },
+    [todos, incrementCount]
+  );
+
+  function reducer(state, action) {
+    const { type, payload } = action;
+    const { todos, incrementCount } = state;
+
+    switch (type) {
+      case "set":
+        return {
+          ...state,
+          todos: payload,
+          incrementCount: incrementCount + 1
+        };
+      case "add":
+        return {
+          ...state,
+          todos: [...todos, payload],
+          incrementCount: incrementCount + 1
+        };
+      case "remove":
+        return {
+          ...state,
+          todos: todos.filter((todo) => todo.id !== payload)
+        };
+      case "toggle":
+        return {
+          ...state,
+          todos: todos.map((todo) =>
+            todo.id === payload
+              ? {
+                  ...todo,
+                  complete: !todo.complete
+                }
+              : todo
+          )
+        };
+      default:
+        return state;
+    }
+  }
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY));
