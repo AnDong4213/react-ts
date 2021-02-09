@@ -1,10 +1,13 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createSet, createAdd, createRemove, createToggle } from "./actions";
 
 import "./index.css";
 
-let idSeq = Date.now();
 const LS_KEY = "_$-todos_";
+let store = {
+  todos: [],
+  incrementCount: 0
+};
 
 function bindActionCreators(actionCreators, dispatch) {
   const ret = {};
@@ -25,8 +28,6 @@ function combineReducers(reducers) {
     for (let key in reducers) {
       changed[key] = reducers[key](state[key], action);
     }
-    console.log("state", state);
-    console.log("changed", changed);
     return {
       ...state,
       ...changed
@@ -44,7 +45,7 @@ function combineReducers(reducers) {
 }; */
 
 function Control(props) {
-  console.log("props", props);
+  console.log("Control--props", props);
   const { addTodo } = props;
   const inputRef = useRef();
 
@@ -55,11 +56,7 @@ function Control(props) {
     if (!newText.length) {
       return;
     }
-    addTodo({
-      id: ++idSeq,
-      text: newText,
-      complete: false
-    });
+    addTodo(newText);
 
     inputRef.current.value = "";
   };
@@ -103,7 +100,7 @@ function TodoItem(props) {
   );
 }
 function Todos(props) {
-  console.log("props", props);
+  console.log("Todos-props", props);
   const { removeTodo, toggleTodo, todos } = props;
   return (
     <ul>
@@ -124,26 +121,26 @@ function TodoList() {
   const [todos, setTodos] = useState([]);
   const [incrementCount, setIncrementCount] = useState(0);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    Object.assign(store, { todos, incrementCount });
+  }, [todos, incrementCount]);
 
-  const dispatch = useCallback(
-    (action) => {
-      const state = {
-        todos,
-        incrementCount
-      };
-      const setters = {
-        todos: setTodos,
-        incrementCount: setIncrementCount
-      };
+  const dispatch = (action) => {
+    const setters = {
+      todos: setTodos,
+      incrementCount: setIncrementCount
+    };
 
-      const newState = reducer(state, action);
-      for (let key in newState) {
-        setters[key](newState[key]);
-      }
-    },
-    [todos, incrementCount]
-  );
+    if (typeof action === "function") {
+      action(dispatch, () => store);
+      return;
+    }
+
+    const newState = reducer(store, action);
+    for (let key in newState) {
+      setters[key](newState[key]);
+    }
+  };
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY));
@@ -205,44 +202,5 @@ const reducers = {
 };
 
 const reducer = combineReducers(reducers);
-
-/* function reducer(state, action) {
-  const { type, payload } = action;
-  const { todos, incrementCount } = state;
-
-  switch (type) {
-    case "set":
-      return {
-        ...state,
-        todos: payload,
-        incrementCount: incrementCount + 1
-      };
-    case "add":
-      return {
-        ...state,
-        todos: [...todos, payload],
-        incrementCount: incrementCount + 1
-      };
-    case "remove":
-      return {
-        ...state,
-        todos: todos.filter((todo) => todo.id !== payload)
-      };
-    case "toggle":
-      return {
-        ...state,
-        todos: todos.map((todo) =>
-          todo.id === payload
-            ? {
-                ...todo,
-                complete: !todo.complete
-              }
-            : todo
-        )
-      };
-    default:
-      return state;
-  }
-} */
 
 export default TodoList;
