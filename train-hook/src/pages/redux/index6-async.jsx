@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { createSet, createAdd, createRemove, createToggle } from "./actions";
+import { createSet, createAdd2, createRemove, createToggle } from "./actions";
 
 import "./index.css";
 
@@ -154,7 +154,7 @@ function TodoList() {
 
   return (
     <div className="todo-list">
-      <Control {...bindActionCreators({ addTodo: createAdd }, dispatch)} />
+      <Control {...bindActionCreators({ addTodo: createAdd2 }, dispatch)} />
       <Todos
         todos={todos}
         {...bindActionCreators(

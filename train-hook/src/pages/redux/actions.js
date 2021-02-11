@@ -5,16 +5,16 @@ export function createSet(payload) {
   };
 }
 
-/* export function createAdd(payload) {
+export function createAdd(payload) {
   return {
     type: "add",
     payload
   };
-} */
+}
 
 let idSeq = Date.now();
 // 异步action
-export function createAdd(text) {
+export function createAdd2(text) {
   return (dispatch, getState) => {
     setTimeout(() => {
       const { todos } = getState();

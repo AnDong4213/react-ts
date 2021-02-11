@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect, memo } from "react";
 import { createSet, createAdd, createRemove, createToggle } from "./actions";
 
 import "./index.css";
@@ -25,8 +25,6 @@ function combineReducers(reducers) {
     for (let key in reducers) {
       changed[key] = reducers[key](state[key], action);
     }
-    console.log("state", state);
-    console.log("changed", changed);
     return {
       ...state,
       ...changed
@@ -43,7 +41,8 @@ function combineReducers(reducers) {
   };
 }; */
 
-function Control(props) {
+// function Control(props) {
+const Control = memo((props) => {
   console.log("props", props);
   const { addTodo } = props;
   const inputRef = useRef();
@@ -77,7 +76,7 @@ function Control(props) {
       </form>
     </div>
   );
-}
+});
 
 function TodoItem(props) {
   const {
