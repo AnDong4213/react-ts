@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react";
 
 export interface User {
-  id: string;
+  id: string | number;
   name: string;
   email: string;
   title: string;
