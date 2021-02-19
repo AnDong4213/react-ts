@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PureComponent, useEffect, useState } from "react";
+import WrapParent from "./wrap-parent";
+import WrapChild from "./wrap-child";
 
 /* class Child extends PureComponent {
   render() {
@@ -36,6 +38,9 @@ function Test2() {
       <h1 onClick={() => setCount((count) => count + 1)}>Test</h1>
       <p>{count}</p>
       <Child2 count={count} />
+      <WrapParent>
+        <WrapChild />
+      </WrapParent>
     </div>
   );
 }

@@ -132,8 +132,8 @@ function Counter() {
   const parcount = useContext(ParentContext);
   return (
     <div>
-      <h3>useContext--{count}</h3>
-      <h3>useContext--{parcount}</h3>
+      <h3>CountContext--{count}</h3>
+      <h3>ParentContext--{parcount}</h3>
     </div>
   );
 }
