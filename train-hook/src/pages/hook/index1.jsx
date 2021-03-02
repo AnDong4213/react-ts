@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
   useMemo,
-  memo,
+  // memo,
   useCallback,
   useRef
 } from "react";
@@ -91,8 +91,8 @@ function Hook(props, state) {
     // 如果这样写的话，依赖数组里不用写clickCount了
 
     // console.log("counterRef", counterRef.current);
-    counterRef.current.speak();
-  }, [counterRef]);
+    // counterRef.current.speak();
+  }, []);
 
   return (
     <div>
@@ -164,6 +164,7 @@ class Counter2 extends PureComponent {
   }
   render() {
     const { props } = this;
+    console.log("9090");
     return (
       <div>
         <h3 style={{ color: "red" }} onClick={props.onClick}>
