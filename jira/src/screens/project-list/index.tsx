@@ -10,14 +10,14 @@ import { useUrlQueryParam } from "utils/url";
 // import { Test } from "./test";
 
 export const ProjectListScreen = () => {
-  const [, setParam] = useState({
+  /* const [, setParam] = useState({
     name: "",
     personId: "",
-  });
+  }); */
   /* const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
   const [param] = useUrlQueryParam(keys); */
   // 基本类型，可以放到依赖里；组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里
-  const [param] = useUrlQueryParam(["name", "personId"]);
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
   const debounceParam = useDebounce(param, 200);
   const { isLoading, error, data: list } = useProjects(debounceParam);
   const { data: users } = useUsers();

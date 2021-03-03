@@ -31,7 +31,8 @@ function Hook(props, state) {
 
   useEffect(() => {
     document.title = `You clicked ${count} times`;
-  });
+    // setNum(num + 1);
+  }, []);
 
   const onResize = () => {
     setSize({
@@ -91,8 +92,8 @@ function Hook(props, state) {
     // 如果这样写的话，依赖数组里不用写clickCount了
 
     // console.log("counterRef", counterRef.current);
-    // counterRef.current.speak();
-  }, []);
+    counterRef.current.speak();
+  }, [counterRef]);
 
   return (
     <div>
