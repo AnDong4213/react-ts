@@ -1,5 +1,6 @@
 import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
 import { useMemo } from "react";
+import { cleanObject } from "utils/index";
 
 /* export const useUrlQueryParam = (keys: string[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +14,6 @@ import { useMemo } from "react";
 
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
   return [
     useMemo(
       () =>
@@ -23,6 +23,13 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [searchParams]
     ),
-    setSearchParams,
+    (params: Partial<{ [key in K]: string }>) => {
+      const o = cleanObject({
+        ...Object.fromEntries(searchParams),
+        ...params,
+      }) as URLSearchParamsInit;
+      console.log("o", searchParams);
+      return setSearchParams(o);
+    },
   ] as const;
 };

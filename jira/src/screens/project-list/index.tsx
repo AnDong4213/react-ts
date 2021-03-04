@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Typography } from "antd";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
@@ -35,7 +35,7 @@ export const ProjectListScreen = () => {
   );
 };
 
-ProjectListScreen.whyDidYouRender = true;
+ProjectListScreen.whyDidYouRender = false;
 
 const Container = styled.div`
   padding: 3.2rem;
