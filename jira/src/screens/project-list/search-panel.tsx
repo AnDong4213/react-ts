@@ -1,9 +1,10 @@
 // import { jsx } from "@emotion/react";
-import { Input, Select, Form } from "antd";
-const { Option } = Select;
+import { Project } from "screens/project-list/list";
+import { Input, Form } from "antd";
+import { UserSelect } from "components/user-select";
 
 export interface User {
-  id: string | number;
+  id: number;
   name: string;
   email: string;
   title: string;
@@ -13,22 +14,18 @@ export interface User {
 
 interface SearchPanelProps {
   users: User[];
-  param: {
-    name: string;
-    personId: string;
-  };
+  param: Partial<Pick<Project, "name" | "personId">>;
   setParam: (param: SearchPanelProps["param"]) => void;
 }
 
-export const SearchPanel = ({ param, setParam, users }: SearchPanelProps) => {
-  // const { param, setParam, users } = props;
-
+export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <Form layout={"inline"} style={{ marginBottom: "2rem" }}>
+    <Form style={{ marginBottom: "2rem" }} layout={"inline"}>
       <Form.Item>
+        {/*setParam(Object.assign({}, param, {name:evt.target.value}))*/}
         <Input
-          type="text"
           placeholder={"项目名"}
+          type="text"
           value={param.name}
           onChange={(evt) =>
             setParam({
@@ -39,22 +36,16 @@ export const SearchPanel = ({ param, setParam, users }: SearchPanelProps) => {
         />
       </Form.Item>
       <Form.Item>
-        <Select
+        <UserSelect
+          defaultOptionName={"负责人"}
           value={param.personId}
-          onChange={(value) => {
+          onChange={(value) =>
             setParam({
               ...param,
               personId: value,
-            });
-          }}
-        >
-          <Option value={""}>负责人</Option>
-          {users.map((user) => (
-            <Option key={user.id} value={String(user.id)}>
-              {user.name}
-            </Option>
-          ))}
-        </Select>
+            })
+          }
+        />
       </Form.Item>
     </Form>
   );
