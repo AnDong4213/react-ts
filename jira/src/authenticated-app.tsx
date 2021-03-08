@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Route, Routes, Navigate } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";

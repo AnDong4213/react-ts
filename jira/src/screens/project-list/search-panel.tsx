@@ -1,6 +1,6 @@
 // import { jsx } from "@emotion/react";
 import { Project } from "screens/project-list/list";
-import { Input, Form } from "antd";
+import { Input, Form, Rate } from "antd";
 import { UserSelect } from "components/user-select";
 
 export interface User {
@@ -19,10 +19,12 @@ interface SearchPanelProps {
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
+  const handleChange = (num: number) => {
+    console.log(num);
+  };
   return (
     <Form style={{ marginBottom: "2rem" }} layout={"inline"}>
       <Form.Item>
-        {/*setParam(Object.assign({}, param, {name:evt.target.value}))*/}
         <Input
           placeholder={"项目名"}
           type="text"
@@ -46,6 +48,9 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         />
+      </Form.Item>
+      <Form.Item>
+        <Rate onChange={handleChange} count={3} value={2} />
       </Form.Item>
     </Form>
   );
