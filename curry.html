@@ -50,19 +50,84 @@
 
         const h2 = document.getElementById("h2");
         const handleClick = (e) => console.log(e.target.innerHTML);
-        // console.log(h2);
         addEvent(h2, "click", handleClick, false);
 
         // 箭头函数(var aa = (a, b, c) => {})没有arguments形参的
         function aa(a, b, c) {
-          console.log(arguments);
+          console.log(this);
+          console.log("arguments----", arguments);
           console.log(Array.prototype.slice.call(arguments));
           console.log(Array.prototype.slice.call(arguments, 1));
           console.log(Array.from(arguments));
+          console.log(Array.of(3, 4, "9"));
           console.log(a, b, c);
         }
-        aa.call(null, 9, 8, 7);
-        aa.apply(null, [8]);
+        // aa.call(h2, 9, 8, 7);
+        // aa.apply(null, [8, 88, 888]);
+
+        // 创造一些帮助其它函数进行柯里化的函数,一个简单的curryingHelper函数如下所示:
+        function curryingHelper(fn) {
+          let _args = Array.prototype.slice.call(arguments, 1);
+          return function () {
+            let _newArgs = Array.prototype.slice.call(arguments);
+            let _totalArgs = _args.concat(_newArgs);
+            return fn.apply(null, _totalArgs);
+          };
+        }
+
+        function showMsg(name, age, fruit) {
+          console.log(
+            `My name is ${name}, I\'m ${age}, and I like eat ${fruit}`
+          );
+        }
+        let curryShowMsg1 = curryingHelper(showMsg, "andong");
+        // curryShowMsg1(22, "apple");
+
+        /* function bb(a) {
+          console.log("fn---", Array.prototype.slice.call(arguments));
+          console.log(a);
+        }
+        bb(1, 2, 3);
+        bb(55); */
+
+        // 经过柯里化后的函数可以每次只传递进去一个参数
+        function betterCurryingHelper(fn, len) {
+          // console.log("fn", fn);
+          console.log("fn-length", fn.length);
+          let length = len || fn.length;
+
+          return function () {
+            let allArgsFulfilled = arguments.length >= length;
+            console.log("allArgsFulfilled----", Array.from(arguments));
+
+            if (allArgsFulfilled) {
+              console.log("arguments--", arguments);
+              return fn.apply(this, arguments);
+            } else {
+              let argsNeedFulfilled = [fn].concat(
+                Array.prototype.slice.call(arguments)
+              );
+
+              return betterCurryingHelper(
+                curryingHelper.apply(this, argsNeedFulfilled),
+                length - arguments.length
+              );
+            }
+          };
+        }
+        var betterShowMsg = betterCurryingHelper(showMsg);
+        betterShowMsg("hihi")(22)("pear");
+
+        /* function cc(a, b, c) {
+          console.log(a, b);
+        }
+        function dd(fn, len) {
+          let length = len || fn.length;
+          console.log("-----", fn);
+          console.log(len);
+          console.log(length);
+        }
+        dd(cc); */
       </script>
     </div>
   </body>

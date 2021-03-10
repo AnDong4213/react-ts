@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+    </style>
+    <title>curry2</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <h1 id="h1">我是h1标签</h1>
+      <script>
+        // 什么是柯里化  如果一个函数可以接收多个参数，将这个函数转化为每次只接收一部分参数的函数的多次调用形式，就是柯里化
+
+        function add(a, b) {
+          console.log(a + b);
+        }
+
+        function curryAdd1(fn) {
+          var args1 = Array.from(arguments).slice(1);
+
+          return function () {
+            var args2 = Array.from(arguments);
+            var args = [...args1, ...args2];
+            fn.apply(null, args);
+          };
+        }
+
+        var add1 = curryAdd1(add, 10);
+        add1(20); //30
+      </script>
+    </div>
+  </body>
+</html>
