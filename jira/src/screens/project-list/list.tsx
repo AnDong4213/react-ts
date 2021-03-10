@@ -3,6 +3,9 @@ import { Table, TableProps } from "antd";
 import dayjs from "dayjs";
 // import { TableProps } from "antd/es/table";
 import { Link } from "react-router-dom";
+import { Pin } from "components/pin";
+import { useEditProject } from "utils/project";
+
 export interface Project {
   id: number;
   name: string;
@@ -15,12 +18,31 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   // list: Project[];
   users: User[];
+  refresh: () => void;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
   // console.log("props", props);
   // const { list, users } = props;
+  const { mutate } = useEditProject();
+  // const pinProject = (id: number, pin: boolean) => mutate({ id, pin });
+  // 用柯里化写point-free风格的代码
+  const pinProject = (id: number) => (pin: boolean) =>
+    mutate({ id, pin }).then(props.refresh);
+
   const columns = [
+    {
+      title: <Pin checked={true} disabled={true} />,
+      render(value: any, project: Project) {
+        return (
+          <Pin
+            checked={project.pin}
+            // onCheckedChange={(pin) => pinProject(project.id, pin)}
+            onCheckedChange={pinProject(project.id)}
+          />
+        );
+      },
+    },
     {
       title: "名称",
       // dataIndex: "name",

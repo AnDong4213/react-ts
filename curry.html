@@ -29,8 +29,19 @@
       <h2 id="h2">我是h2标签</h2>
       <script>
         // 什么是柯里化  如果一个函数可以接收多个参数，将这个函数转化为每次只接收一部分参数的函数的多次调用形式，就是柯里化
-        /* const addOne = (a) => (b) => (c) => a + b + c;
-        console.log(addOne(1)(2)(3)); */
+        const addOne = (a) => (b) => (c) => a + b + c;
+        const addOne2 = (a) => {
+          return (b) => {
+            return (c) => {
+              return a + b + c;
+            };
+          };
+        };
+        console.log(addOne2(1)(2)(3));
+        function freePoint(a) {
+          console.log(a);
+        }
+        Promise.resolve(9).then(freePoint); // free-point
 
         var addEvent = function (el, type, fn, capture) {
           if (window.addEventListener) {

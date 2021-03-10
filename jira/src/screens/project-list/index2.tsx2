@@ -46,7 +46,12 @@ export const ProjectListScreen = () => {
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
       ) : null}
-      <List dataSource={list} loading={isLoading} users={users} />
+      <List
+        refresh={retry}
+        dataSource={list}
+        loading={isLoading}
+        users={users}
+      />
     </Container>
   );
 };
