@@ -70,7 +70,7 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
 
 export const resetRoute = () => (window.location.href = window.location.origin);
 
-export const useArray = <T>(initialArray: T[]) => {
+/* export const useArray = <T>(initialArray: T[]) => {
   const [value, setValue] = useState(initialArray);
   return {
     value,
@@ -83,4 +83,18 @@ export const useArray = <T>(initialArray: T[]) => {
       setValue(copy);
     },
   };
+}; */
+
+// 返回组件的挂载状态，如果还没有挂载或已经卸载，返回false，反之返回true
+// 阻止了在卸载组件上赋值报错的发生
+export const useMountedRef = () => {
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
+  return mountedRef;
 };

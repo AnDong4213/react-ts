@@ -17,6 +17,7 @@ export const ProjectListScreen = () => {
   /* const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
   const [param] = useUrlQueryParam(keys); */
   // 基本类型，可以放到依赖里；组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里
+  // 不要在每次渲染时都重新创建
   const [param, setParam] = useProjectsSearchParams();
   // const debounceParam = useDebounce(param, 200);
   const { isLoading, error, data: list, retry } = useProjects(
