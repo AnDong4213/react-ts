@@ -50,7 +50,7 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
         />
       </Form.Item>
       <Form.Item>
-        <Rate onChange={handleChange} count={3} value={2} />
+        <Rate onChange={handleChange} count={1} value={1} />
       </Form.Item>
     </Form>
   );
