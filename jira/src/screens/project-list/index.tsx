@@ -1,4 +1,4 @@
-import { Typography, Button } from "antd";
+import { Typography } from "antd";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "../../utils";
@@ -10,9 +10,7 @@ import { Row } from "components/lib";
 // import { Test } from "./test";
 // 状态提升可以让组件共享状态，但是容易造成 prop drilling
 
-export const ProjectListScreen = (props: {
-  setProjectModalOpen: (isOpen: boolean) => void;
-}) => {
+export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
   useDocumentTitle("项目列表", false);
   /* const [, setParam] = useState({
     name: "",
@@ -33,16 +31,14 @@ export const ProjectListScreen = (props: {
     <Container>
       <Row between={true}>
         <h1>项目列表{JSON.stringify(isLoading)}</h1>
-        <Button onClick={() => props.setProjectModalOpen(true)}>
-          创建项目
-        </Button>
+        {props.projectButton}
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
       ) : null}
       <List
-        setProjectModalOpen={props.setProjectModalOpen}
+        projectButton={props.projectButton}
         refresh={retry}
         dataSource={list || []}
         loading={isLoading}
