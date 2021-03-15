@@ -26,6 +26,9 @@ const Redux = lazy(() =>
 const Test = lazy(() =>
   import(/* webpackChunkName: 'test' */ "./pages/test/index1")
 );
+const UseReducer = lazy(() =>
+  import(/* webpackChunkName: 'use-reducer' */ "./pages/use-reducer/index")
+);
 
 class App extends Component {
   render() {
@@ -60,6 +63,9 @@ class App extends Component {
             <li>
               <Link to="/test">Test</Link>
             </li>
+            <li>
+              <Link to="/use-reducer">use-reducer</Link>
+            </li>
           </ul>
 
           <hr />
@@ -93,6 +99,9 @@ class App extends Component {
                 </Route>
                 <Route path="/test">
                   <Test />
+                </Route>
+                <Route path="/use-reducer">
+                  <UseReducer />
                 </Route>
               </Switch>
             </Suspense>

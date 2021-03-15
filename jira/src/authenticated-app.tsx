@@ -17,6 +17,7 @@ import { resetRoute } from "utils";
 export const AuthenticatedApp = () => {
   const [projectModalOpen, setProjectModalOpen] = useState(false);
 
+  // 如果你只是想避免层层传递一些属性，组件组合（component composition）有时候是一个比 context 更好的解决方案
   return (
     <Container>
       <PageHeader

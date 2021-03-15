@@ -19,7 +19,7 @@ function bindActionCreators(actionCreators, dispatch) {
   return ret;
 }
 
-function combineReducers(reducers) {
+/* function combineReducers(reducers) {
   return function reducer(state, action) {
     const changed = {};
     for (let key in reducers) {
@@ -30,16 +30,7 @@ function combineReducers(reducers) {
       ...changed
     };
   };
-}
-
-/* const combineReducers = (reducers) => {
-  return (state = {}, action) => {
-    return Object.keys(reducers).reduce((nextState, key) => {
-      nextState[key] = reducers[key](state[key], action);
-      return { ...state, ...nextState };
-    }, {});
-  };
-}; */
+} */
 
 // function Control(props) {
 const Control = memo((props) => {
@@ -201,6 +192,15 @@ const reducers = {
         return state;
     }
   }
+};
+
+const combineReducers = (reducers) => {
+  return (state = {}, action) =>
+    Object.keys(reducers).reduce((nextState, key) => {
+      // 这种写法有一个前提，就是 State 的属性名必须与子 Reducer 同名。
+      nextState[key] = reducers[key](state[key], action);
+      return { ...state, ...nextState };
+    }, {});
 };
 
 const reducer = combineReducers(reducers);
