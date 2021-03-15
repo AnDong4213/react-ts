@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useReducer } from "react";
 import { useMountedRef } from "utils";
 
 interface State<D> {
@@ -17,37 +17,59 @@ const defaultConfig = {
   throwOnError: false,
 };
 
+const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
+  const mountedRef = useMountedRef();
+  return useCallback(
+    (...args: T[]) => (mountedRef.current ? dispatch(...args) : void 0),
+    [dispatch, mountedRef]
+  );
+};
+
 export const useAsync = <D>(
   initialState?: State<D>,
   initialConfig?: typeof defaultConfig
 ) => {
   const config = { ...defaultConfig, ...initialConfig };
-  const [state, setState] = useState<State<D>>({
-    ...defaultInitialState,
-    ...initialState,
-  });
-  const mountedRef = useMountedRef();
+  const [state, dispatch] = useReducer(
+    (state: State<D>, action: Partial<State<D>>) => {
+      console.log("action", action);
+      return { ...state, ...action };
+    },
+    {
+      ...defaultInitialState,
+      ...initialState,
+    }
+  );
+  // const mountedRef = useMountedRef();
+  const safeDispatch = useSafeDispatch(dispatch);
   // useState直接传入函数的含义是：惰性初始化；所以，要用useState保存函数，不能直接传入函数
   const [retry, setRetry] = useState(() => () => {});
 
-  const setData = useCallback((data: D) => {
-    setState({
-      data,
-      stat: "success",
-      error: null,
-    });
-  }, []);
+  const setData = useCallback(
+    (data: D) => {
+      // console.log("data", data);
+      safeDispatch({
+        data,
+        stat: "success",
+        error: null,
+      });
+    },
+    [safeDispatch]
+  );
 
-  const setError = useCallback((error: Error) => {
-    setState({
-      error,
-      data: null,
-      stat: "error",
-    });
-  }, []);
+  const setError = useCallback(
+    (error: Error) => {
+      safeDispatch({
+        error,
+        data: null,
+        stat: "error",
+      });
+    },
+    [safeDispatch]
+  );
   // run 用来触发异步请求
   const run = useCallback(
-    (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+    async (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
       if (!promise || !promise.then) {
         throw new Error("请传入 Promise 类型数据");
       }
@@ -57,21 +79,20 @@ export const useAsync = <D>(
         }
       });
 
-      setState((prevState) => ({ ...prevState, stat: "loading" }));
-      return promise
-        .then((data) => {
-          if (mountedRef.current) setData(data);
-          return data;
-        })
-        .catch((error) => {
-          console.log("error", error);
-          setError(error);
-          // catch会消化异常，如果不主动抛出，外面是接收不到异常的
-          if (config.throwOnError) return Promise.reject(error);
-          return error;
-        });
+      safeDispatch({ stat: "loading" });
+      try {
+        const data = await promise;
+        setData(data);
+        return data;
+      } catch (error) {
+        console.log("error", error);
+        setError(error);
+        // catch会消化异常，如果不主动抛出，外面是接收不到异常的
+        if (config.throwOnError) return Promise.reject(error);
+        return error;
+      }
     },
-    [config.throwOnError, mountedRef, setData, setError]
+    [config.throwOnError, safeDispatch, setData, setError]
   );
 
   return {
