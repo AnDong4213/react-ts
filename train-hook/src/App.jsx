@@ -21,7 +21,7 @@ const Hook = lazy(() =>
   import(/* webpackChunkName: 'hook' */ "./pages/hook/index3")
 );
 const Redux = lazy(() =>
-  import(/* webpackChunkName: 'redux' */ "./pages/redux/index5")
+  import(/* webpackChunkName: 'redux' */ "./pages/redux/index6-async")
 );
 const Test = lazy(() =>
   import(/* webpackChunkName: 'test' */ "./pages/test/index1")

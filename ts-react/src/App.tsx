@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Hello from "./components/Hello";
@@ -29,7 +29,7 @@ const themes: IThemeProps = {
 };
 export const ThemeContext = React.createContext(themes.light);
 
-const DogShow: React.FC<{
+const DogShow: FC<{
   data: IShowResult;
   age: number;
   isLoading: boolean;

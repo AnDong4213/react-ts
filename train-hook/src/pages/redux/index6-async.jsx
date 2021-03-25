@@ -100,7 +100,7 @@ function TodoItem(props) {
   );
 }
 function Todos(props) {
-  console.log("Todos-props", props);
+  console.log("Todos-props33", props);
   const { removeTodo, toggleTodo, todos } = props;
   return (
     <ul>
@@ -132,6 +132,7 @@ function TodoList() {
     };
 
     if (typeof action === "function") {
+      console.log(909);
       action(dispatch, () => store);
       return;
     }
