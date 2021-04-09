@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "dva";
 import ProductList from "../components/ProductList";
 
 const Products = (props) => {
   // console.log("props", props);
-  const { dispatch, products = [] } = props;
+  const { dispatch, products = [], tests } = props;
+  useEffect(() => {
+    console.log("tests", tests);
+  });
   function handleDelete(id) {
     dispatch({
       type: "products/delete33",
@@ -24,11 +27,13 @@ const Products = (props) => {
         <button onClick={handleAdd}>ADD-LIST</button>
       </div>
       <ProductList onDelete={handleDelete} products={products} />
+      <ProductList onDelete={handleDelete} products={tests} />
     </div>
   );
 };
 
 // export default Products;
-export default connect(({ products }) => ({
+export default connect(({ products, tests }) => ({
   products,
+  tests,
 }))(Products);
