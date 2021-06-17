@@ -36,7 +36,7 @@ function Test2() {
   return (
     <div>
       <h1 onClick={() => setCount((count) => count + 1)}>Test</h1>
-      <p>{count}</p>
+      <p style={{ color: "red" }}>{count}</p>
       <Child2 count={count} />
       <WrapParent>
         <WrapChild />
@@ -50,10 +50,10 @@ function Child2(props) {
   useEffect(() => {
     console.log(7687878);
   }, [count]);
-  console.log(props);
+  console.log("props", props);
   return (
     <div>
-      <h1>{count}</h1>
+      <h1 style={{ color: "pink" }}>{count}</h1>
     </div>
   );
 }

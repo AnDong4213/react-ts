@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>Jira任务管理系统</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div></div>
+
+    <script>
+      // console.time("康康");
+      function debounce(fn, wait = 500) {
+        var timer;
+        return function (...para) {
+          if (timer) {
+            console.log("清除定时器");
+            clearTimeout(timer);
+          }
+
+          timer = setTimeout(() => {
+            // fn.apply(this, arguments);
+            fn.call(null, ...para);
+          }, wait);
+        };
+      }
+
+      const log = debounce((a) => console.log(a), 1000);
+
+      log(44);
+      log(55);
+      log(66);
+      // console.timeEnd("康康");
+    </script>
+  </body>
+</html>
