@@ -16,4 +16,19 @@ export const useMount = (callback: () => void) => {
 };
 ```
 
+<font size=3 color=#666 face="黑体">函数防抖</font>
+
+```javascript
+const useDebounce = <V>(value: V, delay?: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+};
+```
+
 <font size=3 color=#666 face="黑体">示例</font>
