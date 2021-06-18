@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { BatteryContext, OnlineContext } from "./context.js";
 
 // 由于Consumer特性，里面的jsx必须是函数的返回值
-class Leaf extends Component {
+/* class Leaf extends React.Component {
   render() {
     return (
       <BatteryContext.Consumer>
@@ -20,6 +20,23 @@ class Leaf extends Component {
       </BatteryContext.Consumer>
     );
   }
+} */
+function Leaf() {
+  console.log(909);
+  return (
+    <BatteryContext.Consumer>
+      {(battery) => (
+        <OnlineContext.Consumer>
+          {(online) => (
+            <div>
+              <p>Battery: {JSON.stringify(battery)}</p>
+              <p>Online: {String(online)}</p>
+            </div>
+          )}
+        </OnlineContext.Consumer>
+      )}
+    </BatteryContext.Consumer>
+  );
 }
 
 /* class Leaf extends Component {

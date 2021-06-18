@@ -12,7 +12,7 @@ const Dashboard = lazy(() =>
 );
 const CreateContext = lazy(() =>
   import(
-    /* webpackChunkName: 'create-context' */ "./pages/create-context/index1"
+    /* webpackChunkName: 'create-context' */ "./pages/create-context/index"
   )
 );
 const LazySuspense = lazy(() =>

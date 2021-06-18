@@ -4,4 +4,6 @@ import { createContext } from "react";
 const BatteryContext = createContext(100);
 const OnlineContext = createContext(false);
 
+BatteryContext.displayName = "custom-provider";
+
 export { BatteryContext, OnlineContext };
