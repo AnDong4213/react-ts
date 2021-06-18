@@ -5,7 +5,9 @@
 ### `React的新特性`
 
 - Context
-  ##### <font size=3 color=#666 face="黑体">Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。</font>
+
+  ##### <font size=3 color=#666 face="黑体">Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。(能够让数据在组件树中传递而不必一级一级的手动传递)</font>
+
 - ContextType
 - lazy
 - Suspense

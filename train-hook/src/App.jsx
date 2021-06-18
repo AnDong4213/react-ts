@@ -11,7 +11,9 @@ const Dashboard = lazy(() =>
   import(/* webpackChunkName: 'dashboard' */ "./pages/dashboard")
 );
 const CreateContext = lazy(() =>
-  import(/* webpackChunkName: 'create-context' */ "./pages/create-context")
+  import(
+    /* webpackChunkName: 'create-context' */ "./pages/create-context/index1"
+  )
 );
 const LazySuspense = lazy(() =>
   import(/* webpackChunkName: 'lazy-suspense' */ "./pages/lazy-suspense")
