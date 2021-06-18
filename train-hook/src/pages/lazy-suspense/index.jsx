@@ -1,20 +1,21 @@
 import React, { Component, lazy, Suspense } from "react";
+import ErrorBoundary from "../../components/error-boundary";
 
 const Test = lazy(() =>
   import(/* webpackChunkName: 'andong' */ "../../components/test")
 );
 
-class LazySuspense extends Component {
+/* class LazySuspense extends Component {
   state = {
     hasError: false
   };
 
   // 异常捕获边界（Error boundaries）
-  /* componentDidCatch() {
-    this.setState({
-      hasError: true
-    });
-  } */
+  // componentDidCatch() {
+  //   this.setState({
+  //     hasError: true
+  //   });
+  // }
   static getDerivedStateFromError(error) {
     // 更新 state 使下一次渲染能够显示降级后的 UI
     return { hasError: true };
@@ -30,6 +31,18 @@ class LazySuspense extends Component {
           <Test />
         </Suspense>
       </div>
+    );
+  }
+} */
+
+class LazySuspense extends Component {
+  render() {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<div>Loading</div>}>
+          <Test />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 }
