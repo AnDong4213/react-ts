@@ -53,4 +53,7 @@ function MyComponent() {
 
 #### `3-4 Memo实现指定组件进行渲染`
 
+<font size=3 color=#666 face="黑体">使用 React.PureComponent 来代替手写 shouldComponentUpdate。但它只进行浅比较，所以当 props 或者 state 某种程度是可变的话，浅比较会有遗漏，那你就不能使用它了。<br /></font>
+<font size=3 color=#666 face="黑体">memo 用于无状态组件，非 class 组件</font>
+
 <font size=3 color=#666 face="黑体">示例</font>

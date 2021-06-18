@@ -52,6 +52,7 @@ class Memo extends Component {
     );
   }
 
+  // 不可变数据的力量
   clickHandle() {
     const { count, person } = this.state;
     person.age++;
