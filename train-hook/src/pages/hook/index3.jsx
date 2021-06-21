@@ -4,13 +4,14 @@ import React, {
   memo,
   useCallback,
   useEffect,
-  useRef
+  useRef,
+  PureComponent
 } from "react";
 
 const Counter = memo((props) => {
-  console.log("Counter render", props);
-  const prev = useRef(props.onClick).current;
-  console.log("prev", prev === props.onClick);
+  console.log("Counter render");
+  const prev = useRef(props.onClick);
+  console.log("prev", prev.current === props.onClick);
   return (
     <div>
       <h3 onClick={props.onClick} style={{ color: "red" }}>
@@ -20,8 +21,37 @@ const Counter = memo((props) => {
   );
 });
 
+class Counter2 extends PureComponent {
+  state = {
+    overflow: false
+  };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("nextProps", nextProps);
+    console.log("prevState", prevState);
+    if (nextProps.count > 10) {
+      console.log(988);
+      return {
+        overflow: true
+      };
+    }
+    return null;
+  }
+  render() {
+    const { props } = this;
+    return (
+      <div>
+        <h3 onClick={props.onClick} style={{ color: "blue" }}>
+          {props.count}--{String(this.state.overflow)}
+        </h3>
+      </div>
+    );
+  }
+}
+
 function Hook() {
   const [count, setCount] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
+  const counterRef = useRef();
 
   useEffect(() => {
     // console.log(90)
@@ -35,8 +65,16 @@ function Hook() {
   /* const onClick = () => {
     console.log(999999);
   }; */
-  const onClick = useCallback(() => {
+  //这样写句柄会发生变化，组件会重新渲染
+  /* const onClick = useCallback(() => {
     console.log(999999);
+    setClickCount(clickCount + 1);
+  }, [clickCount]); */
+  const onClick = useCallback(() => {
+    setClickCount((clickCount) => {
+      return clickCount + 1;
+    });
+    console.log(counterRef.current);
   }, []);
 
   return (
@@ -45,7 +83,10 @@ function Hook() {
         Click ({count})
       </button>
       <br />
+      <em>{clickCount}</em>
+      <br />
       <Counter count={double} onClick={onClick} />
+      <Counter2 ref={counterRef} count={count} onClick={onClick} />
     </div>
   );
 }
