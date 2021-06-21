@@ -31,6 +31,7 @@ import React, { Component, memo } from "react";
 const Foo = memo((props) => {
   console.log("Foo render");
   console.log(props);
+  // props.cb();
   return <div>{props.person.age}</div>;
 });
 
@@ -63,8 +64,12 @@ class Memo extends Component {
     });
   }
 
-  // callback() {}  // 类成员函数导致this不正确，不得不使用类属性来声明回调函数
-  callback = () => {};
+  /* callback() {
+    console.log(this);
+  } */ // 类成员函数导致this不正确，不得不使用类属性来声明回调函数
+  callback = () => {
+    console.log(this);
+  };
 }
 
 export default Memo;

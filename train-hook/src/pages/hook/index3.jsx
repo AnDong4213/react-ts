@@ -1,7 +1,16 @@
-import React, { useState, useMemo, memo, useCallback } from "react";
+import React, {
+  useState,
+  useMemo,
+  memo,
+  useCallback,
+  useEffect,
+  useRef
+} from "react";
 
 const Counter = memo((props) => {
-  console.log("Counter render");
+  console.log("Counter render", props);
+  const prev = useRef(props.onClick).current;
+  console.log("prev", prev === props.onClick);
   return (
     <div>
       <h3 onClick={props.onClick} style={{ color: "red" }}>
@@ -13,6 +22,10 @@ const Counter = memo((props) => {
 
 function Hook() {
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // console.log(90)
+  });
 
   const double = useMemo(() => {
     return count * 2;

@@ -56,4 +56,11 @@ function MyComponent() {
 <font size=2 color=#666 face="黑体">使用 React.PureComponent 来代替手写 shouldComponentUpdate。但它只进行浅比较，所以当 props 或者 state 某种程度是可变的话，浅比较会有遗漏，那你就不能使用它了。<br /></font>
 <font size=2 color=#666 face="黑体">memo 用于无状态组件，非 class 组件</font>
 
+> memo 用来优化函数组件的重渲染行为，当传入属性值都不变的情况下，就不会触发组件的重渲染<br />
+> memo 针对的是组件的渲染是否重复执行而 useMemo 则定义了一段函数逻辑是否重复执行，都是利用同样的算法来判定依赖是否发生改变，决定是否触发特定逻辑，仅仅用来做性能优化用<br />
+> memo 函数根据属性来决定是否重新渲染组件，useMemo 可以根据指定的依赖来决定一段函数逻辑是否重新执行，从而优化性能<br />
+> useEffect 执行的是副作用，在渲染之后运行， useMemo 是希望有返回值的，而返回值可直接参与渲染，因此在渲染期间完成的<br />
+> 函数句柄的变化导致组件也被连带重新渲染，用 useCallback 进行优化，如果 useMemo 返回的是一个函数，可以直接用 useCallback 来省略顶层的函数，useMemo 的一个变体 useMemo(() => fn) --> useCallback(fn)<br />
+> 使用 useCallback 不能阻止创建新的函数，但这个函数不一定会被返回，很可能创建出来就抛弃不用了，解决的是传入子组件的函数参数过度变化导致子组件过度渲染的问题
+
 <font size=2 color=#666 face="黑体">示例</font>
