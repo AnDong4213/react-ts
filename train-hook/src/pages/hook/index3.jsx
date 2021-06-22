@@ -55,6 +55,7 @@ function Hook() {
 
   useEffect(() => {
     // console.log(90)
+    console.log("counterRef.current", counterRef.current);
   });
 
   const double = useMemo(() => {

@@ -18,19 +18,19 @@ function reducer(state, action) {
   }
 }
 
-function Counter2({ initCount }) {
-  const [state, dispatch] = useReducer(reducer, initCount, init);
+function Counter2({ aa }) {
+  const [state, dispatch] = useReducer(reducer, aa, init);
 
   return (
-    <>
+    <h2>
       Count: {state.count}
-      <button onClick={() => dispatch({ type: "reset", payload: initCount })}>
+      <button onClick={() => dispatch({ type: "reset", payload: aa })}>
         {" "}
         Reset
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>-</button>
       <button onClick={() => dispatch({ type: "increment" })}>+</button>
-    </>
+    </h2>
   );
 }
 

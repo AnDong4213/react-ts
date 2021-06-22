@@ -31,7 +31,7 @@ const Test = lazy(() =>
   import(/* webpackChunkName: 'test' */ "./pages/test/index1")
 );
 const UseReducer = lazy(() =>
-  import(/* webpackChunkName: 'use-reducer' */ "./pages/use-reducer/index")
+  import(/* webpackChunkName: 'use-reducer' */ "./pages/use-reducer/index3")
 );
 
 class App extends Component {

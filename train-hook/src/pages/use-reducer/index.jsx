@@ -28,7 +28,7 @@ const UseReducer = () => {
       </button>
       <br />
       <br />
-      <Counter2 initCount={11} />
+      <Counter2 aa={11} />
     </div>
   );
 };
