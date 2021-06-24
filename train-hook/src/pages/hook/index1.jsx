@@ -94,11 +94,12 @@ function Hook(props, state) {
     // console.log("counterRef", counterRef.current);
     counterRef.current.speak();
   }, [counterRef]);
+  const count2 = useContext(CountContext);
 
   return (
     <div>
       <button type="button" onClick={() => setCount(count + 1)}>
-        Click ({count})
+        Click ({count})--{count2}
       </button>
       <br />
       {count % 2 ? (
@@ -107,6 +108,7 @@ function Hook(props, state) {
         <p id="size">p-Size: ({JSON.stringify(size)})</p>
       )}
       <ParentContext.Provider value={count + 10}>
+        <h3>我不是组件--{count2}</h3>
         <CountContext.Provider value={count}>
           <Bar />
           <Counter />

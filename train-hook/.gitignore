@@ -10,6 +10,7 @@
 
 # production
 /build
+/src/assets/video
 
 # misc
 .DS_Store

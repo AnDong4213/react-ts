@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PureComponent, useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 import WrapParent from "./wrap-parent";
 import WrapChild from "./wrap-child";
 
@@ -37,6 +38,13 @@ function Test2() {
     <div>
       <h1 onClick={() => setCount((count) => count + 1)}>Test</h1>
       <p style={{ color: "red" }}>{count}</p>
+      <ReactPlayer
+        playing={true}
+        loop={true}
+        controls={true}
+        muted={true}
+        url="https://huitun.com/icon/home/video_bg.mp4"
+      />
       <Child2 count={count} />
       <WrapParent>
         <WrapChild />
