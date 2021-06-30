@@ -20,6 +20,7 @@ export const login = async (data: { username: string; password: string }) => {
     body: JSON.stringify(data),
   });
   if (response.ok) {
+    // console.log(await response.json());
     return handleUserResponse(await response.json());
   } else {
     return Promise.reject(await response.json());

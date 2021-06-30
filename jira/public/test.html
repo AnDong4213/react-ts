@@ -37,6 +37,70 @@
       log(55);
       log(66);
       // console.timeEnd("康康");
+      console.log("----------------------------------------");
+
+      window.onerror = function (message, url, line) {
+        console.log(message, url, line);
+      };
+
+      // 抛出错误一般都是与try catch 同时出现的
+      // throw new Error(error); 这个是创建错误，创造一个错误类型抛出，throw error 这个是抛出错误。
+
+      let a = 5;
+      try {
+        if (a == 5) {
+          // 抛出错误
+          throw new SyntaxError("我是被抛出的错误...");
+          // Promise.reject("我是Promise抛出的错误...");
+        }
+      } catch (error) {
+        // console.log(error);
+        console.log(error.message); // 我是被抛出的错误...
+        console.log(error.name); // Error
+      }
+
+      try {
+        if (a == 5) {
+          //   抛出错误
+          throw "loopTerminates";
+        }
+      } catch (e) {
+        console.log(e); // loopTerminates
+        console.log(e.message); // undefined
+      }
+
+      // 任何没有通过try-catch处理的错误都会触发window对象的error事件，触发后，之后的程序不再运行
+      // throw new Error("something bad happened");
+      // throw new SyntaxError("I don't like your syntax.");
+      // throw new TypeError("what type of variable do you take me for?");
+      // throw new RangeError("sorry,you just don't have the range.");
+      // throw new EvalError("That doesn't evaluate.");
+      // throw new URIError("URI, is that you?");
+      // throw new ReferenceError("you didn't cite your references properly");
+
+      // 创建自定义错误是很有用的
+      /* function CustomError(message) {
+        this.name = "CustomError";
+        this.message = message;
+      }
+      CustomError.prototype = new Error();
+      throw new CustomError("my message"); */
+
+      console.log("--------------------------");
+
+      const logout = async () => {
+        window.localStorage.removeItem("localStorageKey");
+      };
+      logout().then(() => console.log(900099));
+
+      // 无形参风格(point-free)  函数式编程
+      /* const logout2 = () => {
+        return Promise.resolve("哈哈哈");
+      };
+      function aa(a) {
+        console.log(a + "--");
+      }
+      logout2().then(aa); */
     </script>
   </body>
 </html>

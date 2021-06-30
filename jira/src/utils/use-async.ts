@@ -32,7 +32,7 @@ export const useAsync = <D>(
   const config = { ...defaultConfig, ...initialConfig };
   const [state, dispatch] = useReducer(
     (state: State<D>, action: Partial<State<D>>) => {
-      console.log("action", action);
+      // console.log("action", action);
       return { ...state, ...action };
     },
     {

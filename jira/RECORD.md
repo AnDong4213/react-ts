@@ -39,5 +39,6 @@ const useDebounce = <V>(value: V, delay?: number) => {
 #### `5-4 JWT原理与auth-provider实现`
 
 > JWT 的全称是 JSON Web Tokens，[JWT](https://jwt.io/)<br />
+> 在一个函数前加上 async，就可以使用 then 了
 
 > <font size=3 color=#666 face="黑体">示例</font>
