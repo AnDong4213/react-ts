@@ -1,50 +1,44 @@
-# Getting Started with Create React App
+[precommit 提交前格式化代码](https://prettier.io/docs/en/precommit.html)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[prettier 代码美化](https://prettier.io/docs/en/install.html)
 
-## Available Scripts
+<font size=3 color=#666 face="黑体">父子组件，父组件包裹子组件时，如果代码在 useEffect 里先运行子组件里的，在运行父组件里的；如果不在 useEffect 里反之；；改变父组件的动态变量，会重载父子组件的全部内容，有些组件不需要重载所以需要优化。</font>
 
-In the project directory, you can run:
+#### `3-4 自定义Hook - 用useDebounce减少工程搜索请求频率`
 
-### `yarn start`
+<font size=3 color=#666 face="黑体">在页面刚加载时，执行一次 useEffect 的时候</font>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```javascript
+export const useMount = (callback: () => void) => {
+  useEffect(() => {
+    callback();
+  }, []);
+};
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<font size=3 color=#666 face="黑体">函数防抖</font>
 
-### `yarn test`
+```javascript
+const useDebounce = <V>(value: V, delay?: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+};
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### `5-1 用React表单、TS的类型继承和鸭子类型实现登录表单 `
 
-### `yarn build`
+> **鸭子类型(duck typing): 面向接口编程而不是面向对象编程。**<br />
+> 5-2 课程 把 json-server 给删除了，开始用 jira-dev-tool 了<br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### `5-4 JWT原理与auth-provider实现`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> JWT 的全称是 JSON Web Tokens，[JWT](https://jwt.io/)<br />
+> 在一个函数前加上 async，就可以使用 then 了
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## https://prettier.io/docs/en/precommit.html
-
-## https://prettier.io/docs/en/install.html
+> <font size=3 color=#666 face="黑体">示例</font>
