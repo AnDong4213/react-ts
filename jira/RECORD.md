@@ -31,4 +31,11 @@ const useDebounce = <V>(value: V, delay?: number) => {
 };
 ```
 
-<font size=3 color=#666 face="黑体">示例</font>
+#### `5-1 用React表单、TS的类型继承和鸭子类型实现登录表单 `
+
+> **鸭子类型(duck typing): 面向接口编程而不是面向对象编程。**<br />
+> 5-2 课程 把 json-server 给删除了<br />
+
+#### `5-4 JWT原理与auth-provider实现`
+
+> <font size=3 color=#666 face="黑体">示例</font>
