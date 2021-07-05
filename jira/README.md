@@ -50,7 +50,7 @@ const useDebounce = <V>(value: V, delay?: number) => {
 #### `5-8 用useHttp管理JWT和登录状态，保持登录状态`
 
 > 页面刷新时，user 没有了，初始化 user，bootstrapUser 函数<br />
-> App.tsx {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+> App.tsx `{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}`
 
 #### `5-9 TS 的联合类型、Partial 和 Omit 介绍`
 
