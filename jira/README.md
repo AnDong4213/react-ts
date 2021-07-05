@@ -59,4 +59,8 @@ const useDebounce = <V>(value: V, delay?: number) => {
 > 符串字面量类型 keyof(把一个对象类型的 key 全部取出来，形成一个联合类型)<br />
 > partial--部分的 omit--忽略 Partial，Omit，Pick。Exclude-操作的是字符串字面量类型，联合类型)<br />
 
+#### `6-1 安装与使用 antd 组件库`
+
+> localeCompare，localeCompare 是一种基于国际化字体的地区字符比较，例如中国用中文，美国用英文，法国用法文，德国用德文。。将这些国家的文字按照国家/地区等进行编号，然后每个编号都对应了该国/地区的文字。<br /> > `(a, b) => a.name.localeCompare(b.name)`<br />
+
 > <font size=3 color=#666 face="黑体">示例</font>
