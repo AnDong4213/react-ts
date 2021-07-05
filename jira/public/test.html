@@ -52,6 +52,9 @@
           // 抛出错误
           throw new SyntaxError("我是被抛出的错误...");
           // Promise.reject("我是Promise抛出的错误...");
+          /* Promise.reject({
+            message: "我是Promise抛出的错误...",
+          }); */
         }
       } catch (error) {
         // console.log(error);
@@ -94,13 +97,13 @@
       logout().then(() => console.log(900099));
 
       // 无形参风格(point-free)  函数式编程
-      /* const logout2 = () => {
+      const logout2 = () => {
         return Promise.resolve("哈哈哈");
       };
       function aa(a) {
         console.log(a + "--");
       }
-      logout2().then(aa); */
+      logout2().then(aa);
     </script>
   </body>
 </html>

@@ -33,10 +33,12 @@ export const http = async (
   return window
     .fetch(`${apiUrl}/${endpoint}`, config)
     .then(async (response) => {
+      // console.log("response", response);
       if (response.status === 401) {
+        // 未登录或token失效的情况下返回401,标准的restful的规范，用http的status状态来标识服务端现在的状态
         await auth.logout();
         window.location.reload();
-        return Promise.reject({ message: "请重新登录" });
+        return Promise.reject({ message: "请重新登录噻" });
       }
       const data = await response.json();
       if (response.ok) {
@@ -44,6 +46,9 @@ export const http = async (
       } else {
         return Promise.reject(data);
       }
+    })
+    .catch((err) => {
+      console.log("阿欧，网络未连接");
     });
 };
 
@@ -56,7 +61,7 @@ export const useHttp = () => {
     [user?.token]
   );
 };
-// utility type 的用法：用泛型给它传入一个其他类型，然后utility type对这个类型进行某种操作
+// Utility Types 的用法：(Parameters是其中一个)用泛型给它传入一个其他类型，然后utility type对这个类型进行某种操作
 // TS中的typeof把变量把类型提取出来
 
 // 类型别名在很多情况下可以和interface互换
@@ -83,7 +88,7 @@ type PersonKeys = keyof Person; // 字符串字面量类型  keyof(把一个对�
 type PersonOnlyName = Pick<Person, "name">; // 与omit相反
 type Age = Exclude<PersonKeys, "name">;
 
-// partial--部分的   omit--忽略    Partial，Omit，Pick，Exclude(操作的是字符串字面量类型)
+// partial--部分的   omit--忽略    Partial，Omit，Pick。Exclude-操作的是字符串字面量类型，联合类型)
 let xm: Partial<Person> = { name: "xiaoming" };
 let shenmiren: Omit<Person, "name"> = { age: 33 };
 let c: PersonKeys = "age";
@@ -102,3 +107,31 @@ type Partial<T> = {
 }; */
 
 // TS是类型约束系统
+console.log("--------------------------------------------------------");
+/* interface Person {
+  name: string;
+  age: number;
+} */
+type Person = {
+  name: string;
+  age: number;
+};
+/* const xm: Partial<Person> = {
+  name: "jj",
+}; */
+/* const xm: Omit<Person, "name" | "age"> = {
+  age: 9,
+  name: "99",
+}; */
+// 都不忽略也可以的...
+const xm: Pick<Person, "name" | "age"> = {
+  age: 9,
+  name: "99",
+};
+type PersonKeys = keyof Person; // keyof 把一个对象类型的键值全都取出来，联合在一起成一个联合类型
+
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+console.log(xm);

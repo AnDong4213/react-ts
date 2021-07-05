@@ -15,7 +15,7 @@ const bootstrapUser = async () => {
   let user = null;
   const token = auth.getToken();
   if (token) {
-    const data = await http("me", { token });
+    const data = await http("me", { token }); // 和Login接口有相同的返回
     user = data.user;
   }
   return user;

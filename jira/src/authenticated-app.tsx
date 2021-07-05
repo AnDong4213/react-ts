@@ -26,7 +26,7 @@ export const AuthenticatedApp = () => {
             onClick={() => setProjectModalOpen(true)}
             type={"link"}
           >
-            创建项目
+            创建项目2
           </ButtonNoPadding>
         }
       />
@@ -42,7 +42,7 @@ export const AuthenticatedApp = () => {
                       onClick={() => setProjectModalOpen(true)}
                       type={"link"}
                     >
-                      创建项目
+                      创建项目3
                     </ButtonNoPadding>
                   }
                 />
