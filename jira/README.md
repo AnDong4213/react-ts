@@ -44,19 +44,19 @@ const useDebounce = <V>(value: V, delay?: number) => {
 #### `5-7 用fetch抽象通用HTTP请求方法，增强通用性`
 
 > 在登录的状态，让每个请求都自动的携带 token 去请求服务端保持登录的状态。<br />
-> 在 fetch 的 api 里，服务端返回的异常状态，fetch 的 api 后跟的 catch 里并不会抛出异常， 在断网时，网络未连接时会抛出，概率很小
-> axios 和 fetch 的表现不一样，axios 可以直接在返回状态不为 2xx 的时候抛出异常
+> 在 fetch 的 api 里，服务端返回的异常状态，fetch 的 api 后跟的 catch 里并不会抛出异常， 在断网时，网络未连接时会抛出，概率很小<br />
+> axios 和 fetch 的表现不一样，axios 可以直接在返回状态不为 2xx 的时候抛出异常<br />
 
 #### `5-8 用useHttp管理JWT和登录状态，保持登录状态`
 
-> 页面刷新时，user 没有了，初始化 user，bootstrapUser 函数
+> 页面刷新时，user 没有了，初始化 user，bootstrapUser 函数<br />
 > App.tsx {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
 
 #### `5-9 TS 的联合类型、Partial 和 Omit 介绍`
 
-> Utility Types 的用法：(Parameters 是其中一个)用泛型给它传入一个其他类型，然后 utility type 对这个类型进行某种操作
-> TS 中的 typeof 把变量把类型提取出来，是在静态环境运行的。JS 中的 typeof 是在 runtime 时运行的
-> 符串字面量类型 keyof(把一个对象类型的 key 全部取出来，形成一个联合类型)
-> partial--部分的 omit--忽略 Partial，Omit，Pick。Exclude-操作的是字符串字面量类型，联合类型)
+> Utility Types 的用法：(Parameters 是其中一个)用泛型给它传入一个其他类型，然后 utility type 对这个类型进行某种操作<br />
+> TS 中的 typeof 把变量把类型提取出来，是在静态环境运行的。JS 中的 typeof 是在 runtime 时运行的<br />
+> 符串字面量类型 keyof(把一个对象类型的 key 全部取出来，形成一个联合类型)<br />
+> partial--部分的 omit--忽略 Partial，Omit，Pick。Exclude-操作的是字符串字面量类型，联合类型)<br />
 
 > <font size=3 color=#666 face="黑体">示例</font>
