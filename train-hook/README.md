@@ -67,6 +67,7 @@ function MyComponent() {
 ### `Hooks FAQ`
 
 <font size=2 color=#666 face="黑体">
+
 `Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。`
 
 `我的 React 知识还有多少是仍然有用的？ Hook 是使用你已经知道的 React 特性的一种更直接的方式 —— 比如 state，生命周期，context，以及 refs。它们并没有从根本上改变 React 的工作方式，你对组件，props, 以及自顶向下的数据流的知识并没有改变。`
@@ -87,6 +88,27 @@ function MyComponent() {
 
 </font>
 
-> `如何惰性创建昂贵的对象？` > <font size=2 color=#666 face="黑体"> 有时候需要确保一个对象仅被创建一次</font>
+> `如何惰性创建昂贵的对象？`
+> 有时候需要确保一个对象仅被创建一次，第一个常见的使用场景是当创建初始 state 很昂贵时：
+>
+> ```javascript
+> function Table(props) {
+>   // ⚠️ createRows() 每次渲染都会被调用
+>   const [rows, setRows] = useState(createRows(props.count));
+>   // ...
+> }
+> ```
+
+> 为避免重新创建被忽略的初始 state，我们可以传一个 函数 给 useState：
+>
+> ```javascript
+> function Table(props) {
+>   // ✅ createRows() 只会被调用一次
+>   const [rows, setRows] = useState(() => createRows(props.count));
+>   // ...
+> }
+> ```
+>
+> React 只会在首次渲染时调用这个函数
 
 <font size=2 color=#666 face="黑体">示例</font>
