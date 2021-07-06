@@ -63,4 +63,13 @@ const useDebounce = <V>(value: V, delay?: number) => {
 
 > localeCompare，localeCompare 是一种基于国际化字体的地区字符比较，例如中国用中文，美国用英文，法国用法文，德国用德文。。将这些国家的文字按照国家/地区等进行编号，然后每个编号都对应了该国/地区的文字。<br /> > `(a, b) => a.name.localeCompare(b.name)`<br />
 
+#### `7-1 给页面添加Loading和Error状态，增加页面友好性`
+
+> ```javascript
+> import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
+> ```
+>
+> 图片转化为组件
+> interface ListProps extends TableProps<Project> {}
+
 > <font size=3 color=#666 face="黑体">示例</font>

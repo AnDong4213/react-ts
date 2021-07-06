@@ -48,7 +48,9 @@ export const http = async (
       }
     })
     .catch((err) => {
-      console.log("阿欧，网络未连接");
+      console.log("网络未连接", err);
+      // 请求失败比例设置为100%时出现。。
+      return Promise.reject(err);
     });
 };
 
@@ -112,10 +114,10 @@ console.log("--------------------------------------------------------");
   name: string;
   age: number;
 } */
-type Person = {
-  name: string;
-  age: number;
-};
+// type Person = {
+//   name: string;
+//   age: number;
+// };
 /* const xm: Partial<Person> = {
   name: "jj",
 }; */

@@ -97,6 +97,6 @@ export const List = ({ users, ...props }: ListProps) => {
   ];
 
   return (
-    <Table rowKey={"id"} pagination={false} {...props} columns={columns} />
+    <Table rowKey={"id"} pagination={false} columns={columns} {...props} />
   );
 };
