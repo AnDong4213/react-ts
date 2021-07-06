@@ -64,4 +64,20 @@ function MyComponent() {
 > 使用 useCallback 不能阻止创建新的函数，但这个函数不一定会被返回，很可能创建出来就抛弃不用了，解决的是传入子组件的函数参数过度变化导致子组件过度渲染的问题。
 > ref 获取子组件或者 dom 元素的句柄 渲染周期之间共享数据的存储。
 
+### `Hooks FAQ`
+
+<font size=2 color=#666 face="黑体">
+  `Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。`
+
+`我的 React 知识还有多少是仍然有用的？ Hook 是使用你已经知道的 React 特性的一种更直接的方式 —— 比如 state，生命周期，context，以及 refs。它们并没有从根本上改变 React 的工作方式，你对组件，props, 以及自顶向下的数据流的知识并没有改变。`
+
+`Hook 能否覆盖 class 的所有使用场景？我们给 Hook 设定的目标是尽早覆盖 class 的所有使用场景。目前暂时还没有对应不常用的 getSnapshotBeforeUpdate，getDerivedStateFromError 和 componentDidCatch 生命周期的 Hook 等价写法，但我们计划尽早把它们加进来。`
+
+`生命周期方法要如何对应到 Hook？componentDidMount, componentDidUpdate, componentWillUnmount：useEffect Hook 可以表达所有这些(包括 不那么 常见 的场景)的组合。`
+
+`我该如何使用 Hook 进行数据获取？ https://www.robinwieruch.de/react-hooks-fetch-data/`
+
+`有类似实例变量的东西吗？useRef() Hook 不仅可以用于 DOM refs。「ref」 对象是一个 current 属性可变且可以容纳任意值的通用容器，类似于一个 class 的实例属性。`
+</font>
+
 <font size=2 color=#666 face="黑体">示例</font>
