@@ -67,7 +67,7 @@ function MyComponent() {
 ### `Hooks FAQ`
 
 <font size=2 color=#666 face="黑体">
-  `Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。`
+`Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。`
 
 `我的 React 知识还有多少是仍然有用的？ Hook 是使用你已经知道的 React 特性的一种更直接的方式 —— 比如 state，生命周期，context，以及 refs。它们并没有从根本上改变 React 的工作方式，你对组件，props, 以及自顶向下的数据流的知识并没有改变。`
 
@@ -78,6 +78,15 @@ function MyComponent() {
 `我该如何使用 Hook 进行数据获取？ https://www.robinwieruch.de/react-hooks-fetch-data/`
 
 `有类似实例变量的东西吗？useRef() Hook 不仅可以用于 DOM refs。「ref」 对象是一个 current 属性可变且可以容纳任意值的通用容器，类似于一个 class 的实例属性。`
+
+`我该如何实现 getDerivedStateFromProps？ 可以在渲染过程中更新 state 。React 会立即退出第一次渲染并用更新后的 state 重新运行组件以避免耗费太多性能。`
+
+`有类似 forceUpdate 的东西吗？ const [ignored, forceUpdate] = useReducer(x => x + 1, 0);`
+
+`如何记忆计算结果？ useMemo Hook 允许你通过「记住」上一次计算结果的方式在多次渲染的之间缓存计算结果。记住，传给 useMemo 的函数是在渲染期间运行的。不要在其中做任何你通常不会在渲染期间做的事。举个例子，副作用属于 useEffect，而不是 useMemo。可以把 useMemo 作为一种性能优化的手段，但不要把它当做一种语义上的保证。`
+
 </font>
+
+> `如何惰性创建昂贵的对象？` > <font size=2 color=#666 face="黑体"> 有时候需要确保一个对象仅被创建一次</font>
 
 <font size=2 color=#666 face="黑体">示例</font>
