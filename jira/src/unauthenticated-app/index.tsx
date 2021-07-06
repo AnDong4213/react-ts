@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useState } from "react";
 import { Card, Divider, Button, Typography } from "antd";
 import { LoginScreen } from "./login";
@@ -30,6 +31,9 @@ export const UnauthenticatedApp = () => {
         <Divider />
         <Button type="link" onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? "已经有账号了? 直接登录" : "没有账号? 注册新账号"}
+        </Button>
+        <Button css={{ backgroundColor: "pink" }}>
+          <span>测试css</span>
         </Button>
       </ShadowCard>
     </Container>

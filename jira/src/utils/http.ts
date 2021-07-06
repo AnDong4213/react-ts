@@ -124,7 +124,7 @@ type Person = {
   name: "99",
 }; */
 // 都不忽略也可以的...
-const xm: Pick<Person, "name" | "age"> = {
+/* const xm: Pick<Person, "name" | "age"> = {
   age: 9,
   name: "99",
 };
@@ -134,4 +134,4 @@ type Partial<T> = {
   [P in keyof T]?: T[P];
 };
 
-console.log(xm);
+console.log(xm); */
