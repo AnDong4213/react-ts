@@ -14,12 +14,16 @@ export const UnauthenticatedApp = () => {
   const [error, setError] = useState<Error | null>(null);
   useDocumentTitle("请登录注册以继续");
 
+  const testError = () => {
+    setError(new Error("哈哈，出错了"));
+  };
+
   return (
     <Container style={{ display: "flex", justifyContent: "center" }}>
       <Header />
       <Background />
       <ShadowCard>
-        <Title>{isRegister ? "请注册" : "请登录"}</Title>
+        <Title onClick={testError}>{isRegister ? "请注册" : "请登录"}</Title>
         {error ? (
           <Typography.Text type="danger">{error.message}</Typography.Text>
         ) : null}

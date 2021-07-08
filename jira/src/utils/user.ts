@@ -11,5 +11,6 @@ export const useUsers = (param?: Partial<User>) => {
     run(client("users"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param]);
+
   return result;
 };

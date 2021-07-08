@@ -31,11 +31,11 @@
         };
       }
 
-      const log = debounce((a) => console.log(a), 1000);
+      const log1 = debounce((a) => console.log(a), 1000);
 
-      log(44);
-      log(55);
-      log(66);
+      // log1(44);
+      // log1(55);
+      // log1(66);
       // console.timeEnd("康康");
       console.log("----------------------------------------");
 
@@ -53,8 +53,8 @@
           throw new SyntaxError("我是被抛出的错误...");
           // Promise.reject("我是Promise抛出的错误...");
           /* Promise.reject({
-            message: "我是Promise抛出的错误...",
-          }); */
+                  message: "我是Promise抛出的错误...",
+                }); */
         }
       } catch (error) {
         // console.log(error);
@@ -83,18 +83,33 @@
 
       // 创建自定义错误是很有用的
       /* function CustomError(message) {
-        this.name = "CustomError";
-        this.message = message;
-      }
-      CustomError.prototype = new Error();
-      throw new CustomError("my message"); */
+              this.name = "CustomError";
+              this.message = message;
+            }
+            CustomError.prototype = new Error();
+            throw new CustomError("my message"); */
 
       console.log("--------------------------");
 
+      /* function time2() {
+        for (let a = 0; a < 2000; a++) {
+          console.log("time2");
+        }
+      }
+      function time1() {
+        for (let a = 0; a < 500; a++) {
+          console.log("time1");
+        }
+        setTimeout(time2, 0);
+      }
+      setTimeout(time1, 0); */
+
       const logout = async () => {
-        window.localStorage.removeItem("localStorageKey");
+        await window.localStorage.removeItem("localStorageKey");
+        return 88;
       };
-      logout().then(() => console.log(900099));
+      console.log(logout()); // Promise {<pending>}
+      logout().then((res) => console.log(res));
 
       // 无形参风格(point-free)  函数式编程
       const logout2 = () => {
@@ -103,6 +118,7 @@
       function aa(a) {
         console.log(a + "--");
       }
+      console.log(logout2()); // Promise {<fulfilled>: "哈哈哈"}
       logout2().then(aa);
     </script>
   </body>

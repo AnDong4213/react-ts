@@ -69,7 +69,7 @@ const useDebounce = <V>(value: V, delay?: number) => {
 > import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 > ```
 >
-> 图片转化为组件
+> 图片转化为组件<br />
 > interface ListProps extends TableProps<Project> {}
 
 > <font size=3 color=#666 face="黑体">示例</font>
