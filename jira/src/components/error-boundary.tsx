@@ -10,6 +10,7 @@ type FallbackRender = (props: { error: Error | null }) => React.ReactElement;
   any
 > {} */
 
+// React.PropsWithChildren 类似 Pick Omit
 export class ErrorBoundary extends React.Component<
   React.PropsWithChildren<{ fallbackRender: FallbackRender }>,
   { error: Error | null }

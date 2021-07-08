@@ -72,4 +72,29 @@ const useDebounce = <V>(value: V, delay?: number) => {
 > 图片转化为组件<br />
 > interface ListProps extends TableProps<Project> {}
 
+#### `7-5 实现Error Boundaries，捕获边界错误`
+
+> throw new Error("点击抛出异常")，不会触发 ErrorBoundary。const value: any = undefined;{value.notExist}触发 <br />
+
+> `声明组件TS的两种写法` [react-error-boundary](https://github.com/bvaughn/react-error-boundary#readme)
+
+```javascript
+type FallbackRender = (props: { error: Error | null }) => React.ReactElement;
+<br />;
+export class ErrorBoundary extends React.Component<
+  {
+    children: ReactNode,
+    fallbackRender: FallbackRender,
+  },
+  { error: Error | null }
+> {}
+<br />;
+export class ErrorBoundary extends React.Component<
+  React.PropsWithChildren<{ fallbackRender: FallbackRender }>,
+  { error: Error | null }
+> {}
+<br />;
+type PropsWithChildren<P> = P & { children?: ReactNode };
+```
+
 > <font size=3 color=#666 face="黑体">示例</font>
