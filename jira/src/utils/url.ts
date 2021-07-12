@@ -12,14 +12,16 @@ import { cleanObject } from "utils/index";
   ] as const;
 }; */
 
-export const useUrlQueryParam2 = (keys: string[]) => {
+export const useUrlQueryParam2 = <K extends string>(keys: K[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
   return [
-    keys.reduce(
-      (prev, key) => {
-        return { ...prev, [key]: searchParams.get(key) || "" };
-      },
-      { a: 2 }
+    useMemo(
+      () =>
+        keys.reduce((prev, key) => {
+          return { ...prev, [key]: searchParams.get(key) || "" };
+        }, {} as { [key in string]: string }),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [searchParams]
     ),
     setSearchParams,
   ] as const;
@@ -50,5 +52,3 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   ] as const;
 };
 // Object.entries() 是将对象转成一个自身可枚举属性的键值对数组。
-
-const aa = ["33"] as const;

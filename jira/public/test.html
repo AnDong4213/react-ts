@@ -89,7 +89,7 @@
             CustomError.prototype = new Error();
             throw new CustomError("my message"); */
 
-      console.log("--------------------------");
+      console.log("------------------------------------");
 
       /* function time2() {
         for (let a = 0; a < 2000; a++) {
@@ -121,6 +121,7 @@
       console.log(logout2()); // Promise {<fulfilled>: "哈哈哈"}
       logout2().then(aa); */
 
+      // http://localhost:4008/test?personId=2&name=wxchat
       const searchUrl = window.location.search;
       const searchParams = new URLSearchParams(searchUrl);
       console.log(searchUrl);
@@ -130,6 +131,28 @@
       }
       console.log(searchParams.get("name"));
       console.log(searchParams.getAll("name")); // ["wxchat"]
+      console.log("------------------------------------------");
+      /* console.log(
+        Object.fromEntries([
+          ["a", 4],
+          ["b", 8],
+        ])
+      ); // {a: 4, b: 8}
+      console.log(Object.fromEntries(searchParams));  // {personId: "2", name: "wxchat"} */
+
+      /* let entriesObj = { age: 23, name: "Jack" };
+      console.log(Object.entries(entriesObj)); */
+
+      let aa = [1, 2, 3];
+      for (let v of aa) {
+        console.log(v);
+      }
+      let aas = aa[Symbol.iterator](); // Array Iterator {}
+      console.log(aas);
+      console.log(aas.next()); // {value: 1, done: false}
+      console.log(aas.next()); // {value: 2, done: false}
+      console.log(aas.next()); // {value: 3, done: false}
+      console.log(aas.next()); // {value: undefined, done: true}
     </script>
   </body>
 </html>

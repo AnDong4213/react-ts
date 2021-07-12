@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Typography } from "antd";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
@@ -17,8 +18,9 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     name: "",
     personId: "",
   }); */
-  /* const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
-  const [param] = useUrlQueryParam(keys); */
+  const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
+  const [param2] = useUrlQueryParam2(keys);
+  console.log("param2", param2);
   // 基本类型，可以放到依赖里；组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里
   // 不要在每次渲染时都重新创建
   const [param, setParam] = useProjectsSearchParams();
@@ -28,11 +30,13 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
   );
   const { data: users } = useUsers();
 
-  console.log(useUrlQueryParam2(["name", "personId"]));
+  const changeUrl = () => {
+    setParam({ name: "YY" });
+  };
   return (
     <Container>
       <Row between={true}>
-        <h1>项目列表-{JSON.stringify(isLoading)}</h1>
+        <h1 onClick={changeUrl}>项目列表-{JSON.stringify(isLoading)}</h1>
         {props.projectButton}
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
