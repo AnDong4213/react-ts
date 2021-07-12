@@ -42,18 +42,21 @@ export const useMount = (callback: () => void) => {
 
 export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
+
   useEffect(() => {
+    // 每次在value变化以后，设置一个定时器
     const timeout = setTimeout(() => setDebouncedValue(value), delay);
-    return () => {
-      clearTimeout(timeout);
-    };
+    // 每次在上一个useEffect处理完以后再运行
+    return () => clearTimeout(timeout);
   }, [value, delay]);
+
   return debouncedValue;
 };
 
 export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
-  // const oldTitle = document.title;
   const oldTitle = useRef(document.title).current;
+  // 页面加载时: 旧title
+  // 加载后：新title
 
   useEffect(() => {
     document.title = title;
@@ -62,6 +65,7 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
   useEffect(() => {
     return () => {
       if (!keepOnUnmount) {
+        // 如果不指定依赖，读到的就是旧title
         document.title = oldTitle;
       }
     };

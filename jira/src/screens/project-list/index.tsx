@@ -5,6 +5,7 @@ import { useDebounce, useDocumentTitle } from "../../utils";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
+import { useUrlQueryParam2 } from "utils/url";
 import { useProjectsSearchParams } from "./util";
 import { Row } from "components/lib";
 // import { Test } from "./test";
@@ -27,10 +28,11 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
   );
   const { data: users } = useUsers();
 
+  console.log(useUrlQueryParam2(["name", "personId"]));
   return (
     <Container>
       <Row between={true}>
-        <h1>项目列表-1{JSON.stringify(isLoading)}</h1>
+        <h1>项目列表-{JSON.stringify(isLoading)}</h1>
         {props.projectButton}
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />

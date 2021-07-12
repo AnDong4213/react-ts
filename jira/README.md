@@ -97,4 +97,27 @@ export class ErrorBoundary extends React.Component<
 type PropsWithChildren<P> = P & { children?: ReactNode };
 ```
 
+#### `8-2 ⽤useRef实现useDocumentTitle - useRef与Hook 闭包详解`
+
+> jira\src\screens\project-list\test.tsx
+
+#### `8-5 初步实现 useUrlQueryParam 管理 URL 参数状态`
+
+> http://localhost:4008/test?personId=2&name=wxchat
+
+```javascript
+const searchUrl = window.location.search;
+const searchParams = new URLSearchParams(searchUrl);
+console.log(searchUrl); // ?personId=2&name=wxchat
+console.log(searchParams); // URLSearchParams {}
+for (let p of searchParams) {
+  console.log(p); // ["personId", "2"]  ["name", "wxchat"]
+}
+console.log(searchParams.get("name")); // wxchat
+```
+
+> as const 适用于元组(Tuple)
+> const aa = ["33"]; const aa: string[];
+> const aa = ["33"] as const; const aa: readonly ["33"]
+
 > <font size=3 color=#666 face="黑体">示例</font>

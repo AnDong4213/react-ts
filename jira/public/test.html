@@ -104,22 +104,32 @@
       }
       setTimeout(time1, 0); */
 
-      const logout = async () => {
+      /* const logout = async () => {
         await window.localStorage.removeItem("localStorageKey");
         return 88;
       };
       console.log(logout()); // Promise {<pending>}
-      logout().then((res) => console.log(res));
+      logout().then((res) => console.log(res)); // 88
 
       // 无形参风格(point-free)  函数式编程
       const logout2 = () => {
         return Promise.resolve("哈哈哈");
       };
       function aa(a) {
-        console.log(a + "--");
+        console.log(a + "--"); // 哈哈哈--
       }
       console.log(logout2()); // Promise {<fulfilled>: "哈哈哈"}
-      logout2().then(aa);
+      logout2().then(aa); */
+
+      const searchUrl = window.location.search;
+      const searchParams = new URLSearchParams(searchUrl);
+      console.log(searchUrl);
+      console.log(searchParams);
+      for (let p of searchParams) {
+        console.log(p);
+      }
+      console.log(searchParams.get("name"));
+      console.log(searchParams.getAll("name")); // ["wxchat"]
     </script>
   </body>
 </html>
