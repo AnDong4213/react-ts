@@ -116,15 +116,15 @@ for (let p of searchParams) {
 console.log(searchParams.get("name")); // wxchat
 ```
 
-> as const 适用于元组(Tuple)
+> as const 适用于元组(Tuple);<br />
 > const aa = ["33"]; const aa: string[];<br />
-> const aa = ["33"] as const; const aa: readonly ["33"]
+> const aa = ["33"] as const; const aa: readonly ["33"];
 
 #### `8-6 用useMemo解决依赖循环问题 - Hook的依赖问题详解`
 
-> 只有泛型，能够允许暂时不指定具体的类型，根据传入的值动态判断类型<br />
-> @welldone-software/why-did-you-render，帮助监测是什么造成页面的渲染，造成无限渲染的原因<br />
-> 当 obj 是基本类型的时候，就不会无限循环，当 obj 是对象的时候，就会无限循环，当 obj 是对象的 state 时，不会无限循环
-> 基本类型，可以放到依赖里；useState 组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里
+> 只有泛型，能够允许暂时不指定具体的类型，根据传入的值动态判断类型。<br />
+> @welldone-software/why-did-you-render，帮助监测是什么造成页面的渲染，造成无限渲染的原因。<br />
+> 当 obj 是基本类型的时候，就不会无限循环，当 obj 是对象的时候，就会无限循环，当 obj 是对象的 state 时，不会无限循环。<br />
+> 基本类型，可以放到依赖里；useState 组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里。
 
 > <font size=3 color=#666 face="黑体">示例</font>
