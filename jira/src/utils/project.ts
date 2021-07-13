@@ -36,7 +36,7 @@ export const useEditProject = () => {
   };
   return {
     mutate,
-    asyncResult,
+    ...asyncResult,
   };
 };
 

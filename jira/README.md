@@ -146,4 +146,15 @@ export interface Project {
 }
 ```
 
+#### `9-3 用 useEditProject 编辑项目`
+
+```java
+  // 用柯里化写point-free风格的代码，两个参数获取的时机是不一样的
+  const pinProject = (id: number, pin: boolean) => mutate({ id, pin });
+  onCheckedChange={(pin) => pinProject(project.id, pin)}
+
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
+  onCheckedChange={pinProject(project.id)}
+```
+
 > <font size=3 color=#666 face="黑体">示例</font>

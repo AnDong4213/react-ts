@@ -2,6 +2,7 @@
 import { Project } from "screens/project-list/list";
 import { Input, Form, Rate } from "antd";
 import { UserSelect } from "components/user-select";
+import { useState } from "react";
 
 export interface User {
   id: number;
@@ -21,7 +22,9 @@ interface SearchPanelProps {
 export const SearchPanel = ({ param, setParam }: SearchPanelProps) => {
   const handleChange = (num: number) => {
     console.log(num);
+    setValue(num);
   };
+  const [value, setValue] = useState(0);
   return (
     <Form style={{ marginBottom: "2rem" }} layout={"inline"}>
       <Form.Item>
@@ -50,7 +53,7 @@ export const SearchPanel = ({ param, setParam }: SearchPanelProps) => {
         />
       </Form.Item>
       <Form.Item>
-        <Rate onChange={handleChange} count={1} value={1} />
+        <Rate onChange={handleChange} count={5} value={value} />
       </Form.Item>
     </Form>
   );
