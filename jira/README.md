@@ -125,6 +125,25 @@ console.log(searchParams.get("name")); // wxchat
 > 只有泛型，能够允许暂时不指定具体的类型，根据传入的值动态判断类型。<br />
 > @welldone-software/why-did-you-render，帮助监测是什么造成页面的渲染，造成无限渲染的原因。<br />
 > 当 obj 是基本类型的时候，就不会无限循环，当 obj 是对象的时候，就会无限循环，当 obj 是对象的 state 时，不会无限循环。<br />
-> 基本类型，可以放到依赖里；useState 组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里。
+> 基本类型，可以放到依赖里；useState 组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里。<br />
+
+#### `9-2 抽象user-select组件选择用户`
+
+```java
+interface SearchPanelProps {
+  users: User[];
+  param: Partial<Pick<Project, "name" | "personId">>; // Partial<>与某个对象属性设置为undefined
+  setParam: (param: SearchPanelProps["param"]) => void;
+}
+
+export interface Project {
+  id: number;
+  name: string;
+  personId: number; // personId为undefined
+  pin: boolean;
+  organization: string;
+  created: number;
+}
+```
 
 > <font size=3 color=#666 face="黑体">示例</font>

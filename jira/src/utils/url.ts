@@ -46,7 +46,6 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
         ...Object.fromEntries(searchParams), // 使用 Object.fromEntries 将数组转成对象
         ...params,
       }) as URLSearchParamsInit;
-      console.log("o--", searchParams);
       return setSearchParams(o);
     },
   ] as const;

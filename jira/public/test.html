@@ -153,6 +153,36 @@
       console.log(aas.next()); // {value: 2, done: false}
       console.log(aas.next()); // {value: 3, done: false}
       console.log(aas.next()); // {value: undefined, done: true}
+
+      console.log("------------------------------------------");
+      const objIterator = {
+        data: ["hello", "world"],
+        [Symbol.iterator]() {
+          const self = this;
+          let index = 0;
+
+          return {
+            next() {
+              if (index < self.data.length) {
+                return {
+                  value: self.data[index++] + "!",
+                  done: false,
+                };
+              } else {
+                return { value: undefined, done: true };
+              }
+            },
+          };
+        },
+      };
+
+      for (let o of objIterator) {
+        console.log(o);
+      }
+      /* const objIterator2 = { a: 1 };
+      for (let o of objIterator2) {
+        console.log(o); // Uncaught TypeError: objIterator2 is not iterable
+      } */
     </script>
   </body>
 </html>
