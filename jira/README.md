@@ -127,6 +127,25 @@ console.log(searchParams.get("name")); // wxchat
 > 当 obj 是基本类型的时候，就不会无限循环，当 obj 是对象的时候，就会无限循环，当 obj 是对象的 state 时，不会无限循环。<br />
 > 基本类型，可以放到依赖里；useState 组件状态，可以放到依赖里；非组件状态的对象，绝不可以放到依赖里。<br />
 
+```java
+  export const useProjectsSearchParams = () => {
+    const [param, setParam] = useUrlQueryParam(["name", "personId"]);
+
+    return [
+      useMemo(
+        () => ({ ...param, personId: Number(param.personId) || undefined }),
+        [param]
+      ),
+      setParam,
+    ] as const;
+  };
+  // 用useMemo把非组件状态的对象包裹起来，可以放到依赖里
+  const [param, setParam] = useProjectsSearchParams();
+  const { isLoading, error, data: list, retry } = useProjects(
+    useDebounce(param, 200)
+  );
+```
+
 #### `9-2 抽象user-select组件选择用户`
 
 ```java
@@ -155,6 +174,21 @@ export interface Project {
 
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
   onCheckedChange={pinProject(project.id)}
+```
+
+#### `9-4 编辑后刷新-useState的懒初始化与保存函数状态`
+
+```java
+  // useState惰性初始 state
+  // initialState 参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始 state 需要通过复杂计算获得，则可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用：
+
+  const [state, setState] = useState(() => {
+    const initialState = someExpensiveComputation(props); // 非常昂贵的计算，很消耗性能，只会在组件的初始渲染中起作用，后续渲染时会被忽略。
+    return initialState;
+  });
+  // 在useState中传入函数，有特殊意义的，是惰性初始 state，react并不认为我们是要保存函数，要惰性初始 state。如果要保存函数，需要在加一层
+  // useState(() => () => alert(9))，也可以用useRef保存函数
+  // useRef不是useState，用useRef定义的值并不是组件的状态，只是一个普通的变量，useRef的容器里保存的值改变的时候，不会触发组件重新渲染
 ```
 
 > <font size=3 color=#666 face="黑体">示例</font>

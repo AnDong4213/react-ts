@@ -90,4 +90,21 @@ function Counter() {
   return <h1>{count}</h1>;
 }
 
-export default Counter;
+function App1() {
+  const cbRef = useRef(() => alert("init"));
+  const cb = cbRef.current;
+  console.log(cb);
+
+  return (
+    <div>
+      <button onClick={() => (cbRef.current = () => alert("update"))}>
+        应用
+      </button>
+      {/* <button onClick={cb()}>乐乐1</button>  直接运行函数 */}
+      {/* <button onClick={cb.current()}>乐乐1</button>  报错  TypeError: cb.current is not a function */}
+      <button onClick={cb.current}>乐乐1</button>
+      <button onClick={() => cbRef.current()}>乐乐2</button>
+    </div>
+  );
+}
+export default App1;
