@@ -139,11 +139,12 @@ console.log(searchParams.get("name")); // wxchat
       setParam,
     ] as const;
   };
-  // 用useMemo把非组件状态的对象包裹起来，可以放到依赖里
+  // 用useMemo把非组件状态的对象包裹起来，可以放到依赖里，用useCallback包裹的函数也可以放到依赖里
   const [param, setParam] = useProjectsSearchParams();
   const { isLoading, error, data: list, retry } = useProjects(
     useDebounce(param, 200)
   );
+  // useMemo和useCallback都是为了依赖而存在的，非基本类型做依赖时，用useMemo和useCallback包裹起来，不要在每次页面渲染时侯重新创建
 ```
 
 #### `9-2 抽象user-select组件选择用户`
@@ -190,5 +191,12 @@ export interface Project {
   // useState(() => () => alert(9))，也可以用useRef保存函数
   // useRef不是useState，用useRef定义的值并不是组件的状态，只是一个普通的变量，useRef的容器里保存的值改变的时候，不会触发组件重新渲染
 ```
+
+#### `10-3 状态提升，组合组件与控制反转(下)`
+
+> ES6 明确规定，如果区块中存在 let 和 const 命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称 TDZ）。<br />
+> 状态提升可以让组件共享状态，但是容易造成 prop drilling。<br />
+> 如果你只是想避免层层传递一些属性，组件组合（component composition）有时候是一个比 context 更好的解决方案。<br />
+> 控制反转是一种设计模式。<br />
 
 > <font size=3 color=#666 face="黑体">示例</font>

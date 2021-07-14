@@ -69,7 +69,7 @@ const PageHeader = (props: { projectButton: JSX.Element }) => {
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonNoPadding type="link" onClick={resetRoute}>
-          <SoftwareLogo width={"18rem"} color={"rgb(38, 132, 255)"} />
+          <SoftwareLogo width={"10rem"} color={"rgb(38, 132, 255)"} />
         </ButtonNoPadding>
         <ProjectPopover {...props} />
         <span>用户</span>
