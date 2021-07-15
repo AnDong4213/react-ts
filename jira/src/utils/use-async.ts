@@ -30,19 +30,20 @@ export const useAsync = <D>(
   initialConfig?: typeof defaultConfig
 ) => {
   const config = { ...defaultConfig, ...initialConfig };
+  // useReducer里的action可以没有type
   const [state, dispatch] = useReducer(
-    (state: State<D>, action: Partial<State<D>>) => {
-      // console.log("action", action);
-      return { ...state, ...action };
-    },
+    (state: State<D>, action: Partial<State<D>>) => ({
+      ...state,
+      ...action,
+    }),
     {
       ...defaultInitialState,
       ...initialState,
     }
   );
-  // const mountedRef = useMountedRef();
+  // action {data: Array(4), stat: "success", error: null}
+
   const safeDispatch = useSafeDispatch(dispatch);
-  // useState直接传入函数的含义是：惰性初始化；所以，要用useState保存函数，不能直接传入函数
   const [retry, setRetry] = useState(() => () => {});
 
   const setData = useCallback(

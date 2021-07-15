@@ -37,6 +37,7 @@ function Counter2({ initialCount }) {
         +
       </button>
       <button onClick={() => dispatch({ count: 99 })}>哈哈</button>
+      <button onClick={() => dispatch({ count: state.count + 9 })}>呵呵</button>
     </h2>
   );
 }
