@@ -1,4 +1,4 @@
-import { useCallback, useState, useReducer } from "react";
+import { useCallback, useState } from "react";
 import { useMountedRef } from "utils";
 
 interface State<D> {
@@ -17,56 +17,34 @@ const defaultConfig = {
   throwOnError: false,
 };
 
-const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
-  const mountedRef = useMountedRef();
-  return useCallback(
-    (...args: T[]) => (mountedRef.current ? dispatch(...args) : void 0),
-    [dispatch, mountedRef]
-  );
-};
-
 export const useAsync = <D>(
   initialState?: State<D>,
   initialConfig?: typeof defaultConfig
 ) => {
   const config = { ...defaultConfig, ...initialConfig };
-  const [state, dispatch] = useReducer(
-    (state: State<D>, action: Partial<State<D>>) => {
-      // console.log("action", action);
-      return { ...state, ...action };
-    },
-    {
-      ...defaultInitialState,
-      ...initialState,
-    }
-  );
-  // const mountedRef = useMountedRef();
-  const safeDispatch = useSafeDispatch(dispatch);
+  const [state, setState] = useState<State<D>>({
+    ...defaultInitialState,
+    ...initialState,
+  });
+  const mountedRef = useMountedRef();
   // useState直接传入函数的含义是：惰性初始化；所以，要用useState保存函数，不能直接传入函数
   const [retry, setRetry] = useState(() => () => {});
 
-  const setData = useCallback(
-    (data: D) => {
-      // console.log("data", data);
-      safeDispatch({
-        data,
-        stat: "success",
-        error: null,
-      });
-    },
-    [safeDispatch]
-  );
+  const setData = useCallback((data: D) => {
+    setState({
+      data,
+      stat: "success",
+      error: null,
+    });
+  }, []);
 
-  const setError = useCallback(
-    (error: Error) => {
-      safeDispatch({
-        error,
-        data: null,
-        stat: "error",
-      });
-    },
-    [safeDispatch]
-  );
+  const setError = useCallback((error: Error) => {
+    setState({
+      error,
+      data: null,
+      stat: "error",
+    });
+  }, []);
   // run 用来触发异步请求
   const run = useCallback(
     async (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
@@ -79,10 +57,10 @@ export const useAsync = <D>(
         }
       });
 
-      safeDispatch({ stat: "loading" });
+      setState((prevState) => ({ ...prevState, stat: "loading" }));
       try {
         const data = await promise;
-        setData(data);
+        if (mountedRef.current) setData(data);
         return data;
       } catch (error) {
         console.log("error", error);
@@ -92,7 +70,7 @@ export const useAsync = <D>(
         return error;
       }
     },
-    [config.throwOnError, safeDispatch, setData, setError]
+    [config.throwOnError, mountedRef, setData, setError]
   );
 
   return {

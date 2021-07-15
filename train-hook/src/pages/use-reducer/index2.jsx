@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 function init(initialCount) {
+  console.log("initialCount", initialCount);
   return { count: initialCount };
 }
 function reducer(state, action) {
@@ -14,22 +15,28 @@ function reducer(state, action) {
     case "reset":
       return init(action.payload);
     default:
-      throw new Error();
+      console.log("action", action);
+      return { ...state, ...action };
   }
 }
 
-function Counter2({ aa }) {
-  const [state, dispatch] = useReducer(reducer, aa, init);
+function Counter2({ initialCount }) {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
 
   return (
     <h2>
       Count: {state.count}
-      <button onClick={() => dispatch({ type: "reset", payload: aa })}>
-        {" "}
+      <br />
+      <button
+        onClick={() => dispatch({ type: "reset", payload: initialCount })}
+      >
         Reset
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>-</button>
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: "increment", payload: 5 })}>
+        +
+      </button>
+      <button onClick={() => dispatch({ count: 99 })}>哈哈</button>
     </h2>
   );
 }

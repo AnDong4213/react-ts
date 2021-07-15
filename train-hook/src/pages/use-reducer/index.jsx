@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import Counter2 from "./index2";
 
 const initialState = { count: 0 };
+
 function reducer(state, action) {
   const { type, payload } = action;
   switch (type) {
@@ -28,7 +29,7 @@ const UseReducer = () => {
       </button>
       <br />
       <br />
-      <Counter2 aa={11} />
+      <Counter2 initialCount={12} />
     </div>
   );
 };

@@ -199,4 +199,8 @@ export interface Project {
 > 如果你只是想避免层层传递一些属性，组件组合（component composition）有时候是一个比 context 更好的解决方案。<br />
 > 控制反转是一种设计模式。<br />
 
+#### `10-5 用useReducer进行状态管理`
+
+> useState 与 useReducer。useState 适合定义单个的状态，useReducer 适合定义一群会互相影响的状态。
+
 > <font size=3 color=#666 face="黑体">示例</font>
