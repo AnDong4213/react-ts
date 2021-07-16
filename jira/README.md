@@ -203,4 +203,44 @@ export interface Project {
 
 > useState 与 useReducer。useState 适合定义单个的状态，useReducer 适合定义一群会互相影响的状态。
 
+#### `10-9 为什么我们需要redux-thunk？`
+
+> [redux](https://github.com/reduxjs/redux) [react-redux](https://github.com/reduxjs/react-redux) [redux-thunk](https://github.com/reduxjs/redux-thunk)
+
+```java
+  // 纯redux
+  /* export {
+    createStore,
+    combineReducers,
+    bindActionCreators,
+    applyMiddleware,
+    compose,
+    __DO_NOT_USE__ActionTypes
+  } */
+  constructor(props) {
+    super(props);
+    this.state = store.getState();
+    store.subscribe(this.handleStoreChange)
+  }
+  handleStoreChange() {
+    this.setState(store.getState())
+  }
+  // Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。
+```
+
+```java
+  // react-redux的使用(非hooks)
+  // Default: dispatch as a Prop。If you don't specify the second argument to connect(), your component will receive `dispatch` by default。
+  connect()(MyComponent)
+  // which is equivalent with
+  connect(null, null)(MyComponent)
+  // or
+  connect(mapStateToProps /** no second argument */)(MyComponent)
+
+
+  // Two Forms of mapDispatchToProps
+  > Function form: Allows more customization, gains access to dispatch and optionally ownProps
+  > Object shorthand form: More declarative and easier to use
+```
+
 > <font size=3 color=#666 face="黑体">示例</font>
