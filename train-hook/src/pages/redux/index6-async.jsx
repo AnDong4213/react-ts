@@ -9,23 +9,12 @@ let store = {
   incrementCount: 0
 };
 
-function bindActionCreators(actionCreators, dispatch) {
-  const ret = {};
-  for (let key in actionCreators) {
-    ret[key] = function (...args) {
-      const actionCreator = actionCreators[key];
-      const action = actionCreator(...args);
-      dispatch(action);
-    };
-  }
-
-  return ret;
-}
-
 function combineReducers(reducers) {
-  return function reducer(state, action) {
+  console.log("reducers", reducers);
+  return (state, action) => {
     const changed = {};
     for (let key in reducers) {
+      console.log("state[key]", state[key]);
       changed[key] = reducers[key](state[key], action);
     }
     return {
@@ -36,6 +25,7 @@ function combineReducers(reducers) {
 }
 
 /* const combineReducers = (reducers) => {
+  console.log("reducers", reducers);
   return (state = {}, action) => {
     return Object.keys(reducers).reduce((nextState, key) => {
       nextState[key] = reducers[key](state[key], action);
@@ -43,6 +33,19 @@ function combineReducers(reducers) {
     }, {});
   };
 }; */
+function bindActionCreators(actionCreators, dispatch) {
+  const ret = {};
+  for (let key in actionCreators) {
+    ret[key] = function (...args) {
+      const actionCreator = actionCreators[key];
+      // console.log(args);
+      const action = actionCreator(...args);
+      dispatch(action);
+    };
+  }
+  // console.log("ret", ret);
+  return ret;
+}
 
 function Control(props) {
   console.log("Control--props", props);

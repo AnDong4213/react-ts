@@ -241,6 +241,43 @@ export interface Project {
   // Two Forms of mapDispatchToProps
   > Function form: Allows more customization, gains access to dispatch and optionally ownProps
   > Object shorthand form: More declarative and easier to use
+
+  import { increment, decrement, reset } from './counterActions'
+  const actionCreators = {
+    increment,
+    decrement,
+    reset,
+  }
+  export default connect(mapState, actionCreators)(Counter)
+  // or
+  export default connect(mapState, { increment, decrement, reset })(Counter)
+
+};
+```
+
+#### `dispatch可以放到异步的回调函数里，很少这样做。redux有异步的功能，redux-thunk可以帮助隐藏异步或同步实现的细节，让异步代码也能像普通的actionCreator一样写在actionCreator里`
+
+```java
+  // 只有引入了 redux-thunk 才能这样用
+  const handleInputChange = (e) => (dispatch) => {
+    const action = {
+      type: "change_input_value",
+      value: e.target.value
+    };
+  dispatch(action);
+
+  export const handleCustomItem = () => async (dispatch, state) => {
+    console.log("state", state());
+    const url = await axios.get(
+      "https://api.thecatapi.com/v1/images/search?limit=1"
+    );
+    const item = url.data[0].url;
+
+    dispatch({
+      type: "add_item_custom",
+      item
+    });
+  };
 ```
 
 > <font size=3 color=#666 face="黑体">示例</font>
