@@ -4,7 +4,7 @@ import { handleCustomItem } from "../../store/actionCreators";
 const hehe = 99;
 
 function Home(props) {
-  console.log(props);
+  // console.log(props);
   const {
     handleInputChange,
     handleClick,

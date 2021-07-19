@@ -242,7 +242,7 @@ export interface Project {
   > Function form: Allows more customization, gains access to dispatch and optionally ownProps
   > Object shorthand form: More declarative and easier to use
 
-  import { increment, decrement, reset } from './counterActions'
+  import {increment, decrement, reset} from './counterActions'
   const actionCreators = {
     increment,
     decrement,
@@ -259,13 +259,6 @@ export interface Project {
 
 ```java
   // 只有引入了 redux-thunk 才能这样用
-  const handleInputChange = (e) => (dispatch) => {
-    const action = {
-      type: "change_input_value",
-      value: e.target.value
-    };
-  dispatch(action);
-
   export const handleCustomItem = () => async (dispatch, state) => {
     console.log("state", state());
     const url = await axios.get(
@@ -278,6 +271,25 @@ export interface Project {
       item
     });
   };
+
+  // 直接返回action就行
+  const handleInputChange = (e) => (dispatch) => {
+    const action = {
+      type: "change_input_value",
+      value: e.target.value
+    };
+    dispatch(action);
+  }
+
+  // 如果不是异步函数，直接返回action就行，自动会dispatch(action)
+  const handleClick = () => {
+    const action = {
+      type: "add_item"
+    };
+    return action;
+  };
 ```
+
+#### `10-10 配置redux-toolkit`
 
 > <font size=3 color=#666 face="黑体">示例</font>

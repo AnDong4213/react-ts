@@ -7,7 +7,12 @@ const reducer = combineReducers({
   reducer1,
   reducer2
 });
+// const api = "http://www.example.com/";
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(
+  reducer,
+  // applyMiddleware(thunk.withExtraArgument({ api }))
+  applyMiddleware(thunk)
+);
 
 export default store;

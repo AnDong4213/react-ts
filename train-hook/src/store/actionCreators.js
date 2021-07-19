@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const handleCustomItem = () => async (dispatch, state) => {
+export const handleCustomItem = () => async (dispatch, state, obj) => {
   console.log("state", state());
+  console.log("obj", obj); // applyMiddleware(thunk.withExtraArgument({ api })) obj才有值
   const url = await axios.get(
     "https://api.thecatapi.com/v1/images/search?limit=1"
   );
