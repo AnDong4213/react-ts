@@ -292,4 +292,29 @@ export interface Project {
 
 #### `10-10 配置redux-toolkit`
 
+[Redux Toolkit](https://redux-toolkit.js.org/)
+[Immer](https://immerjs.github.io/immer/)
+
+#### `11-2 用 react-query 来处理 -服务端缓存`
+
+[React Query](https://react-query.tanstack.com/)
+
+> 达到用全局状态管理来实现的效果，又不用维护 redux 状态树。看成缓存。<br />
+> 缓存里的三个概念，1.使用 useQuery，2 刷新 3，获取数据
+
+#### `11-3 类型守卫，用useQuery缓存工程列表`
+
+```java
+  // 类型守卫
+  const isError = (value: any): value is Error => value?.message;
+
+  export const ErrorBox = ({ error }: { error: unknown }) => {
+    if (isError(error)) {
+      return <Typography.Text type="danger">{error?.message}</Typography.Text>;
+    }
+
+    return null;
+  };
+```
+
 > <font size=3 color=#666 face="黑体">示例</font>

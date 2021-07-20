@@ -19,7 +19,6 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   // list: Project[];
   users: User[];
-  refresh: () => void;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
@@ -28,8 +27,7 @@ export const List = ({ users, ...props }: ListProps) => {
   const { mutate } = useEditProject();
   // const pinProject = (id: number, pin: boolean) => mutate({ id, pin });
   // 用柯里化写point-free风格的代码
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refresh);
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
 
   const columns = [
     {
