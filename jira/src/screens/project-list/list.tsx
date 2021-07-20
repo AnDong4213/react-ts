@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
+import { useProjectModal } from "./util";
 
 export interface Project {
   id: number;
@@ -17,7 +18,6 @@ export interface Project {
 }
 
 interface ListProps extends TableProps<Project> {
-  // list: Project[];
   users: User[];
 }
 
@@ -25,9 +25,11 @@ export const List = ({ users, ...props }: ListProps) => {
   // console.log("props", props);
   // const { list, users } = props;
   const { mutate } = useEditProject();
+  const { startEdit } = useProjectModal();
   // const pinProject = (id: number, pin: boolean) => mutate({ id, pin });
   // 用柯里化写point-free风格的代码
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const editProject = (id: number) => () => startEdit(id);
 
   const columns = [
     {
@@ -82,7 +84,10 @@ export const List = ({ users, ...props }: ListProps) => {
           <Dropdown
             overlay={
               <Menu>
-                <Menu.Item key={"edit"}></Menu.Item>
+                <Menu.Item onClick={editProject(project.id)} key={"edit"}>
+                  编辑
+                </Menu.Item>
+                <Menu.Item key={"delete"}>删除</Menu.Item>
               </Menu>
             }
           >
