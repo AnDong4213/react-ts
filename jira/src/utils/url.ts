@@ -51,3 +51,14 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   ] as const;
 };
 // Object.entries() 是将对象转成一个自身可枚举属性的键值对数组。
+
+export const useSetUrlSearchParam = () => {
+  const [searchParams, setSearchParam] = useSearchParams();
+  return (params: { [key in string]: unknown }) => {
+    const o = cleanObject({
+      ...Object.fromEntries(searchParams),
+      ...params,
+    }) as URLSearchParamsInit;
+    return setSearchParam(o);
+  };
+};
