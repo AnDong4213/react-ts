@@ -9,7 +9,9 @@ export const LoginScreen = ({
   onError: (error: Error) => void;
 }) => {
   const { login } = useAuth();
-  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+  const { run, isLoading } = useAsync(undefined, {
+    throwOnError: true,
+  });
   const handleSubmit = async (values: {
     username: string;
     password: string;
@@ -18,12 +20,14 @@ export const LoginScreen = ({
     try {
       await run(login(values));
     } catch (error) {
+      // console.log(error);
       onError(error);
     }
   };
 
   return (
     <Form onFinish={handleSubmit}>
+      {/* {JSON.stringify(error1)} */}
       <Form.Item
         name={"username"}
         label="用户名"
