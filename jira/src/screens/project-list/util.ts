@@ -32,16 +32,12 @@ export const useProjectModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
   const open = () => setProjectCreate({ projectCreate: true });
-  /* const close = () => {
-    setProjectCreate({ projectCreate: "" });
-    setEditingProjectId({ editingProjectId: "" });
-  }; */
   const close = () => setUrlParams({ projectCreate: "", editingProjectId: "" });
   const startEdit = (id: number) =>
     setEditingProjectId({ editingProjectId: id });
 
   return {
-    projectModalOpen: projectCreate === "true" || Boolean(editingProject),
+    projectModalOpen: projectCreate === "true" || Boolean(editingProjectId),
     open,
     close,
     startEdit,

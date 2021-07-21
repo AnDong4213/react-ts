@@ -9,7 +9,6 @@ export const useConfig = (
     onSuccess: () => queryClient.invalidateQueries(queryKey),
     async onMutate(target: any) {
       const previousItems = queryClient.getQueryData(queryKey);
-      console.log("target", target);
       queryClient.setQueryData(queryKey, (old?: any[]) => {
         return callback(target, old);
       });
@@ -38,4 +37,4 @@ export const useEditConfig = (queryKey: QueryKey) =>
   );
 
 export const useAddConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (target, old) => (old ? [...old, target] : []));
+  useConfig(queryKey, (target, old) => (old ? [...old, target] : [target]));
