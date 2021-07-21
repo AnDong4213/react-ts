@@ -1,4 +1,4 @@
-import { Project } from "screens/project-list/list";
+import { Project } from "types/project";
 import { cleanObject } from "utils";
 import { useHttp } from "utils/http";
 import { useQuery, useMutation, QueryKey } from "react-query";
@@ -7,11 +7,12 @@ import {
   useAddConfig,
   useDeleteConfig,
 } from "utils/use-optimistic-options";
+import { useProjectsQueryKey } from "screens/project-list/util";
 
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
 
-  return useQuery<Project[], Error>(["projects", param], () =>
+  return useQuery<Project[], Error>(useProjectsQueryKey(), () =>
     client("projects", { data: cleanObject(param || {}) })
   );
 };

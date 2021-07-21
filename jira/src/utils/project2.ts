@@ -1,5 +1,5 @@
 // import { useAsync } from "utils/use-async";
-import { Project } from "screens/project-list/list";
+import { Project } from "types/project";
 import { cleanObject } from "utils";
 import { useHttp } from "utils/http";
 import { useQuery, useMutation, useQueryClient } from "react-query";
