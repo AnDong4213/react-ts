@@ -292,4 +292,4 @@ export interface Project {
 
 #### `10-10 配置redux-toolkit`
 
-> <font size=3 color=#666 face="黑体">示例</font>
+> <font size=3 color=#666 face="黑体">no-react-query</font>
