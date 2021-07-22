@@ -1,4 +1,5 @@
 export interface Task {
+  id2: number;
   id: number;
   name: string;
   // 经办人
