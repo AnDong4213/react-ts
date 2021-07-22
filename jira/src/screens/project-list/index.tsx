@@ -1,12 +1,16 @@
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "../../utils";
-import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
 // import { useUrlQueryParam2 } from "utils/url";
 import { useProjectModal, useProjectsSearchParams } from "./util";
-import { ButtonNoPadding, ErrorBox, Row } from "components/lib";
+import {
+  ButtonNoPadding,
+  ErrorBox,
+  Row,
+  ScreenContainer,
+} from "components/lib";
 // import { Test } from "./test";
 // 状态提升可以让组件共享状态，但是容易造成 prop drilling
 
@@ -31,7 +35,7 @@ export const ProjectListScreen = () => {
     setParam({ name: "YY" });
   };
   return (
-    <Container>
+    <ScreenContainer>
       <Row between={true}>
         <h1 onClick={changeUrl}>项目列表-{JSON.stringify(isLoading)}</h1>
         <ButtonNoPadding onClick={open} type={"link"}>
@@ -41,12 +45,8 @@ export const ProjectListScreen = () => {
       <SearchPanel param={param} setParam={setParam} />
       {error ? <ErrorBox error={error} /> : null}
       <List dataSource={list || []} loading={isLoading} users={users || []} />
-    </Container>
+    </ScreenContainer>
   );
 };
 
 ProjectListScreen.whyDidYouRender = false;
-
-const Container = styled.div`
-  padding: 3.2rem;
-`;

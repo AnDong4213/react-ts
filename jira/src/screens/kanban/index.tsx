@@ -3,6 +3,7 @@ import { useDocumentTitle } from "utils";
 import { KanbanColumn } from "./kanban-column";
 import { useKanbanSearchParams, useProjectInUrl } from "./util";
 import { SearchPanel } from "screens/kanban/search-panel";
+import { ScreenContainer } from "components/lib";
 import { useKanbans } from "utils/kanban";
 
 export const KanbanScreen = () => {
@@ -11,7 +12,7 @@ export const KanbanScreen = () => {
   const { data: kanbans } = useKanbans(useKanbanSearchParams());
 
   return (
-    <div>
+    <ScreenContainer>
       <h1>{currentProject?.name}看板</h1>
       <SearchPanel />
       <ColumnsContainer>
@@ -19,12 +20,12 @@ export const KanbanScreen = () => {
           <KanbanColumn kanban={kanban} key={kanban.id} />
         ))}
       </ColumnsContainer>
-    </div>
+    </ScreenContainer>
   );
 };
 
 const ColumnsContainer = styled.div`
   display: flex;
-  overflow: hidden;
-  margin-right: 2rem;
+  overflow-x: scroll;
+  flex: 1;
 `;
