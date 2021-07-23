@@ -80,7 +80,7 @@ export const List = ({ users, ...props }: ListProps) => {
 
 const More = ({ project }: { project: Project }) => {
   const { startEdit } = useProjectModal();
-  const editProject = (id: number) => () => startEdit(id);
+  const editProject = (id: number) => startEdit(id);
 
   const { mutate } = useDeleteProject(useProjectsQueryKey());
   const confirmDeleteProject = (id: number) => {
@@ -98,7 +98,7 @@ const More = ({ project }: { project: Project }) => {
     <Dropdown
       overlay={
         <Menu>
-          <Menu.Item onClick={editProject(project.id)} key={"edit"}>
+          <Menu.Item onClick={() => editProject(project.id)} key={"edit"}>
             编辑
           </Menu.Item>
           <Menu.Item

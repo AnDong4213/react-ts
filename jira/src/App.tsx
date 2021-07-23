@@ -4,6 +4,8 @@ import { UnauthenticatedApp } from "./unauthenticated-app";
 import { FullPageErrorFallback } from "components/lib";
 import { ErrorBoundary } from "components/error-boundary";
 
+// const AuthenticatedApp = lazy(() => import("./authenticated-app"));
+
 function App() {
   const { user } = useAuth();
 

@@ -15,6 +15,9 @@ export const useProjects = (param?: Partial<Project>) => {
   return useQuery<Project[], Error>(useProjectsQueryKey(), () =>
     client("projects", { data: cleanObject(param || {}) })
   );
+  /* return useQuery<Project[], Error>(["projects", param], () =>
+    client("projects", { data: cleanObject(param || {}) })
+  ); */
 };
 
 /* export const useEditProject = () => {
