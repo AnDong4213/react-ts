@@ -3,19 +3,17 @@ import { connect } from "react-redux";
 import { handleCustomItem } from "../../store/actionCreators";
 const hehe = 9966;
 
-function Home(props) {
-  // console.log(props);
-  const {
-    handleInputChange,
-    handleClick,
-    handleDelete,
-    handleCustomItem,
-    inputValue,
-    list,
-    haha,
-    hehe,
-    hihi
-  } = props;
+function Home({
+  handleInputChange,
+  handleClick,
+  handleDelete,
+  handleCustomItem,
+  inputValue,
+  list,
+  haha,
+  hehe,
+  hihi
+}) {
   return (
     <section>
       <div>Home</div>

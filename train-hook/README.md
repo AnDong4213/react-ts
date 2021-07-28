@@ -64,6 +64,32 @@ function MyComponent() {
 > 使用 useCallback 不能阻止创建新的函数，但这个函数不一定会被返回，很可能创建出来就抛弃不用了，解决的是传入子组件的函数参数过度变化导致子组件过度渲染的问题。
 > ref 获取子组件或者 dom 元素的句柄 渲染周期之间共享数据的存储。
 
+```java
+  export default function App() {
+    // 不应放到依赖里
+    const value = { name: 1 };// 每次App组件渲染，value变量都会被定义一次
+
+    // 可以放到依赖里
+    // useMemo 的意思就是：不要每次渲染都重新定义，而是我让你重新定义的时候再重新定义(第二个参数，依赖列表)
+    const value = React.useMemo(() => {
+      return { name: 1 };
+    }, []);
+
+    React.useEffect(() => {
+      alert("render");
+    }, [value]);
+
+    return (
+      <div className="App"></div>
+    );
+  }
+
+  如果你定义了一个变量，满足下面的条件就最好用useMemo和useCallback给包裹住：
+  1. 它不是状态，也就是说，不是用useState定义的(redux中的状态实际上也是用useState定义的)
+  2. 它不是基本类型
+  3. 它会被放在useEffect的依赖列表里 || 自定义hook的返回值
+```
+
 ### `Hooks FAQ`
 
 <font size=2 color=#666 face="黑体">
