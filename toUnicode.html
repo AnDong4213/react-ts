@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+    </style>
+    <title>curry2</title>
+  </head>
+  <body>
+    <div id="root">
+      <h1 id="h1">我是h1标签</h1>
+      <script>
+        function toUnicode(s) {
+          return s.replace(
+            /([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,
+            function (newStr) {
+              return "\\u" + newStr.charCodeAt(0).toString(16);
+            }
+          );
+        }
+        // console.log(toUnicode("相似素材"));
+
+        function isChinese(s) {
+          return /[\u4e00-\u9fa5]/.test(s);
+        }
+        function ch2Unicdoe(str) {
+          if (!str) {
+            return;
+          }
+          var unicode = "";
+          for (var i = 0; i < str.length; i++) {
+            var temp = str.charAt(i);
+            if (isChinese(temp)) {
+              unicode += "\\u" + temp.charCodeAt(0).toString(16);
+            } else {
+              unicode += temp;
+            }
+          }
+          return unicode;
+        }
+        var str = "状态";
+        console.info(ch2Unicdoe(str));
+
+        function unicode2Ch(str) {
+          if (!str) {
+            return;
+          }
+          // 控制循环跃迁
+          var len = 1;
+          var result = "";
+          // 注意，这里循环变量的变化是i=i+len 了
+          for (var i = 0; i < str.length; i = i + len) {
+            len = 1;
+            var temp = str.charAt(i);
+            if (temp == "\\") {
+              // 找到形如 \u 的字符序列
+              if (str.charAt(i + 1) == "u") {
+                // 提取从i+2开始(包括)的 四个字符
+                var unicode = str.substr(i + 2, 4);
+                // 以16进制为基数解析unicode字符串，得到一个10进制的数字
+                result += String.fromCharCode(
+                  parseInt(unicode, 16).toString(10)
+                );
+                // 提取这个unicode经过了5个字符， 去掉这5次循环
+                len = 6;
+              } else {
+                result += temp;
+              }
+            } else {
+              result += temp;
+            }
+          }
+          return result;
+        }
+
+        console.info(unicode2Ch("\u60a8\u5e94\u5f53"));
+      </script>
+    </div>
+  </body>
+</html>
