@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { handleCustomItem } from "../../store/actionCreators";
-const hehe = 99;
+const hehe = 9966;
 
 function Home(props) {
   // console.log(props);
@@ -12,12 +12,16 @@ function Home(props) {
     handleCustomItem,
     inputValue,
     list,
-    haha
+    haha,
+    hehe,
+    hihi
   } = props;
   return (
     <section>
       <div>Home</div>
       <h4>{haha}</h4>
+      <h4>{hehe}</h4>
+      <h4>{hihi}</h4>
       <input onChange={handleInputChange} value={inputValue} />
       <button onClick={handleClick}>提交</button>
       <button onClick={handleCustomItem}>异步提交</button>
@@ -43,15 +47,23 @@ function Home(props) {
   );
 }
 
+// 不能使用 return action;
 const handleInputChange = (e) => (dispatch) => {
   const action = {
     type: "change_input_value",
     value: e.target.value
   };
 
-  // return action;
   dispatch(action);
 };
+/* const handleInputChange = (e) => {
+  const action = {
+    type: "change_input_value",
+    value: e.target.value
+  };
+
+  return action;
+}; */
 
 const handleClick = () => {
   const action = {
@@ -78,11 +90,12 @@ const handleDelete = (index) => {
 )(Home); */
 
 export default connect(
-  ({ reducer1 }) => ({
+  ({ reducer1, reducer2 }) => ({
     haha: reducer1.haha,
     inputValue: reducer1.inputValue,
-    hehe,
-    list: reducer1.list
+    hehe: 678,
+    list: reducer1.list,
+    hihi: reducer2.hihi
   }),
   {
     handleInputChange,

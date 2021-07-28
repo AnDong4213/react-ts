@@ -1,7 +1,7 @@
 const defaultState = {
   inputValue: "",
   list: ["a", "b"],
-  haha: "我是自定义的哈哈"
+  haha: "我是reducer1自定义的哈哈"
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
