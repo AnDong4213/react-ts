@@ -151,10 +151,10 @@ var CommentList = React.createClass({
   export default withPar;
 ```
 
-> `3. Render Props`(2017 年，render props 流行起来)。
-> 2017 年，render props 流行起来，它的缺点是，难以阅读，难以理解。
-> render prop 是一个用于告知组件需要渲染什么内容的函数 prop
-> 任何被用于告知组件需要渲染什么内容的函数 prop 在技术上都可以被称为 “render prop”.
+> `3. Render Props`(2017 年，render props 流行起来)。<br />
+> 2017 年，render props 流行起来，它的缺点是，难以阅读，难以理解。<br />
+> render prop 是一个用于告知组件需要渲染什么内容的函数 prop<br />
+> 任何被用于告知组件需要渲染什么内容的函数 prop 在技术上都可以被称为 “render prop”.<br />
 
 ### `Hooks FAQ`
 
