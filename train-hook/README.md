@@ -96,6 +96,66 @@ function MyComponent() {
 > Hook 用来解决什么问题？一句话，Hook 是用来让我们更好地复用 React 状态逻辑代码的。注意这里说的不是模板代码，模板代码可以用组件来复用；而单纯的状态逻辑代码没法用组件复用。<br />
 > 有的同学可能会说，普通的函数不就可以实现逻辑代码复用吗？答案是：普通的函数可以复用逻辑代码，但是没法复用带状态的逻辑代码。<br />
 
+### `React 状态代码复用历程`
+
+> `大概经历了：Mixin → HOC → Render Props，一直到现在的 Hook` 。<br />
+>
+> `1. Mixin。` Mixin 是最早的 React 代码复用方案。它的好处是简单粗暴，符合直觉，也确实起到了重用代码的作用；但是坏处也很明显，隐式依赖，名字冲突，不支持 class component，难以维护，总之，现在已经被完全淘汰了<br />
+
+```java
+  var SubscriptionMixin = {
+  getInitialState: function() {
+    return {
+      comments: DataSource.getComments()
+    };
+  },
+  componentDidMount: function() {
+    DataSource.addChangeListener(this.handleChange);
+  },
+  componentWillUnmount: function() {
+    DataSource.removeChangeListener(this.handleChange);
+  },
+  handleChange: function() {
+    this.setState({
+      comments: DataSource.getComments()
+    });
+  }
+};
+
+var CommentList = React.createClass({
+  mixins: [SubscriptionMixin],
+
+  render: function() {
+    // Reading comments from state managed by mixin.
+    var comments = this.state.comments;
+    return (
+      <div>
+        {comments.map(function(comment) {
+          return <Comment comment={comment} key={comment.id} />
+        })}
+      </div>
+    )
+  }
+});
+
+```
+
+> `2. HOC (higher-order component) 高阶组件`。2015 年，React 团队判处 Mixin 死刑以后，推荐大家使用 HOC 模式，HOC 是采用了设计模式里的装饰器模式。(代码在 about/index.tsx 组件里)<br />
+> 经典的 容器组件与 UI 组件分离 (separation of container presidential) 就是从这里开始的，一个很经典的 HOC 使用案例是 react redux 中的 connect 方法<br />
+>
+> **优点：** 1. 可以在任何组件包括 Class Component 中工作。2. 它所倡导的 容器组件与展示组件分离 原则做到了：关注点分离<br />
+>
+> **缺点：** 1. 不直观，难以阅读 2. 名字冲突 3. 组件层层层层层层嵌套<br />
+
+```java
+  export default withPar;
+```
+
+> `3. Render Props`(2017 年，render props 流行起来)。
+> 2017 年，render props 流行起来，它的缺点是，难以阅读，难以理解。
+> render prop 是一个用于告知组件需要渲染什么内容的函数 prop
+> 任何被用于告知组件需要渲染什么内容的函数 prop 在技术上都可以被称为 “render prop”.
+
 ### `Hooks FAQ`
 
 <font size=2 color=#666 face="黑体">
