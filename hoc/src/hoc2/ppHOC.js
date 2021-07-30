@@ -5,7 +5,7 @@ function ppHOC(WrappedComponent) {
     constructor(props) {
       super(props);
       this.state = {
-        name: ""
+        name: "88"
       };
       this.onNameChange = this.onNameChange.bind(this);
     }
@@ -18,7 +18,7 @@ function ppHOC(WrappedComponent) {
     render() {
       console.log("this.props--ppppppppp", this.props);
       const newProps = {
-        name: {
+        name1: {
           value: this.state.name,
           onChange: this.onNameChange
         }

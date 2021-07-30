@@ -26,8 +26,8 @@ class App extends React.Component {
     return (
       <div className="App">
         {/* <HOC2 name={name} age={25} /> */}
-        <Page1 name={name} />
-        <ReverseInput name={name} loggedIn={true} />
+        {/* <Page1 name={name} />
+        <ReverseInput name={name} loggedIn={true} /> */}
         <PpELE name={name} />
       </div>
     );

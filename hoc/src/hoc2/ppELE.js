@@ -5,7 +5,12 @@ import ppHOC from "./ppHOC";
 @ppHOC
 class Example extends Component {
   render() {
-    return <input {...this.props.name} />;
+    return (
+      <div>
+        <span>{this.props.name}</span>
+        <h4>{JSON.stringify(this.props.name1)}</h4>
+      </div>
+    );
   }
 }
 export default Example;

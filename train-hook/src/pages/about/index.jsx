@@ -143,10 +143,7 @@ class Mouse extends React.Component {
   render() {
     return (
       <div style={{ height: "100vh" }} onMouseMove={this.handleMouseMove}>
-        {/*
-          Instead of providing a static representation of what <Mouse> renders,
-          use the `render` prop to dynamically determine what to render.
-        */}
+        {/* 使用'render'属性动态确定要渲染的内容，而不是提供<Mouse>渲染内容的静态表示 */}
         {/* {this.props.render(this.state)} */}
         {this.props.children(this.state)}
       </div>
