@@ -26,6 +26,7 @@
   <body>
     <div id="root">
       <h1 id="h1">我是h1标签</h1>
+      <h1 class="source">哈哈哈</h1>
       <script>
         function toUnicode(s) {
           return s.replace(
@@ -93,6 +94,19 @@
         console.info(
           unicode2Ch("\u76f8\u4f3c\u7d20\u6750(\u9ad8/\u4e2d/\u6b63\u5e38")
         );
+
+        async function copyPageUrl() {
+          try {
+            await window.navigator.clipboard.writeText(location.href);
+            console.log("Page URL copied to clipboard");
+          } catch (err) {
+            console.error("Failed to copy: ", err);
+          }
+        }
+
+        // copyPageUrl();
+
+        console.log(navigator.clipboard);
       </script>
     </div>
   </body>

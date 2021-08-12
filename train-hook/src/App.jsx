@@ -36,6 +36,7 @@ const UseReducer = lazy(() =>
 const HooksFaq = lazy(() =>
   import(/* webpackChunkName: 'hooks-faq' */ "./pages/hooks-faq")
 );
+const Refs = lazy(() => import(/* webpackChunkName: 'refs' */ "./pages/refs"));
 
 class App extends Component {
   render() {
@@ -76,6 +77,9 @@ class App extends Component {
             <li>
               <Link to="/hooks-faq">Hooks FAQ</Link>
             </li>
+            <li>
+              <Link to="/refs">Refs</Link>
+            </li>
           </ul>
 
           <hr />
@@ -115,6 +119,9 @@ class App extends Component {
                 </Route>
                 <Route path="/hooks-faq">
                   <HooksFaq />
+                </Route>
+                <Route path="/refs">
+                  <Refs />
                 </Route>
               </Switch>
             </Suspense>
