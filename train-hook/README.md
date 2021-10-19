@@ -201,6 +201,14 @@ var CommentList = React.createClass({
 > }
 > ```
 >
-> React 只会在首次渲染时调用这个函数
+> React 只会在首次渲染时调用这个函数 <br />
+
+```java
+  //  useRef() 在所有 render 里面都保持着唯一的引用，对 ref 的赋值或者取值拿到的都是一个最终的状态。ref 就是一个 object，在多次渲染中保持引用。
+  //  useRef 只是利用了一下对象的引用地址，而调用 setState 会将这个地址更新导致不一样。
+
+  react在props和state更新的时候会重新渲染组件，那这个重新渲染是重绘吗，还是其他的渲染方式？
+  // react 使用 vdom 来计算需要更新渲染的最小代价 然后可以做到改动 dom 的幅度最小完成最后的结果 由于改了dom 结构 还是会发生 repaint 和 reflow的react批量处理这些变化并且一次性应用到真实的DOM上。所以，最小化了回流和重绘。
+```
 
 <font size=2 color=#666 face="黑体">示例</font>
