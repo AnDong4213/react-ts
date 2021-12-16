@@ -39,7 +39,7 @@ class LazySuspense extends Component {
   render() {
     return (
       <ErrorBoundary>
-        <Suspense fallback={<div>Loading</div>}>
+        <Suspense fallback={<div>Loading2...</div>}>
           <Test />
         </Suspense>
       </ErrorBoundary>

@@ -48,7 +48,7 @@ class App extends Component {
               <Link to="/home">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about">About-(render prop)</Link>
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
@@ -85,7 +85,7 @@ class App extends Component {
           <hr />
 
           <div className="router-switch">
-            <Suspense fallback={<div>Loading</div>}>
+            <Suspense fallback={<div>Loading1...</div>}>
               <Switch>
                 <Route exact path="/home">
                   <Home />

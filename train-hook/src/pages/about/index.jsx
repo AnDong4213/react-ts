@@ -150,14 +150,22 @@ class Mouse extends React.Component {
     );
   }
 }
+Mouse.propTypes = {
+  children: PropTypes.func.isRequired
+};
 
 class MouseTracker extends React.Component {
   render() {
+    //简单的说， render prop 是一个用于告知组件需要渲染什么内容的函数 prop。
+    //事实上，任何被用于告知组件需要渲染什么内容的函数 prop 在技术上都可以被称为 “render prop”.
+    // children prop 并不真正需要添加到 JSX 元素的 “attributes” 列表中。相反，你可以直接放置到元素的内部！
+
     return (
       <div>
         <h1>移动鼠标!</h1>
         {/* <Mouse render={(mouse) => <Cat mouse={mouse} />} /> */}
         <Mouse>{(mouse) => <Cat mouse={mouse} />}</Mouse>
+        <h2>来了</h2>
       </div>
     );
   }

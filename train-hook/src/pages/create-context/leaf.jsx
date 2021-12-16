@@ -39,16 +39,16 @@ function Leaf() {
   );
 }
 
-/* class Leaf extends Component {
-  static contextType = BatteryContext;  // 类静态变量
+/* class Leaf extends React.Component {
+  static contextType = OnlineContext; // 类静态变量
+  // static contextType = BatteryContext; // 类静态变量
 
   render() {
     const { context } = this;
     console.log("this", this);
     return (
       <div>
-        <h4>{context}</h4>
-        <input readOnly value={context} />
+        <h4>Leaf-{JSON.stringify(context)}</h4>
       </div>
     );
   }
