@@ -5,7 +5,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
-.control h1{
+.control h1 {
   width: 100%;
   /* font-size: 100px; */
   text-align: center;
@@ -55,6 +55,7 @@
 
 .complete {
   text-decoration: line-through;
+  color: aqua;
 }
 
 .todo-item button {
@@ -66,4 +67,3 @@
   font-size: 30px;
   color: #666;
 }
-

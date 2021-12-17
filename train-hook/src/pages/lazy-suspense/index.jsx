@@ -35,11 +35,20 @@ const Test = lazy(() =>
   }
 } */
 
+function Loading() {
+  return (
+    <div>
+      <p></p>
+      <h2>loading3...</h2>
+    </div>
+  );
+}
+
 class LazySuspense extends Component {
   render() {
     return (
       <ErrorBoundary>
-        <Suspense fallback={<div>Loading2...</div>}>
+        <Suspense fallback={Loading()}>
           <Test />
         </Suspense>
       </ErrorBoundary>

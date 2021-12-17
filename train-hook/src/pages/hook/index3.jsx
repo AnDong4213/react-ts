@@ -28,7 +28,7 @@ class Counter2 extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log("nextProps", nextProps);
     console.log("prevState", prevState);
-    if (nextProps.count > 10) {
+    if (nextProps.count > 3) {
       console.log(988);
       return {
         overflow: true
@@ -41,7 +41,7 @@ class Counter2 extends PureComponent {
     return (
       <div>
         <h3 onClick={props.onClick} style={{ color: "blue" }}>
-          {props.count}--{String(this.state.overflow)}
+          {props.count}-------{String(this.state.overflow)}
         </h3>
       </div>
     );
@@ -84,7 +84,7 @@ function Hook() {
         Click ({count})
       </button>
       <br />
-      <em>{clickCount}</em>
+      <em style={{ color: "pink", fontWeight: "bold" }}>{clickCount}</em>
       <br />
       <Counter count={double} onClick={onClick} />
       <Counter2 ref={counterRef} count={count} onClick={onClick} />

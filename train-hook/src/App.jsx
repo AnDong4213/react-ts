@@ -22,7 +22,7 @@ const Memo = lazy(() =>
   import(/* webpackChunkName: 'memo' */ "./pages/memo/index")
 );
 const Hook = lazy(() =>
-  import(/* webpackChunkName: 'hook' */ "./pages/hook/index1")
+  import(/* webpackChunkName: 'hook' */ "./pages/hook/index3")
 );
 const Redux = lazy(() =>
   import(/* webpackChunkName: 'redux' */ "./pages/redux/index6-async")

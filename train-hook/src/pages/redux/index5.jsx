@@ -6,35 +6,9 @@ import "./index.css";
 let idSeq = Date.now();
 const LS_KEY = "_$-todos_";
 
-function bindActionCreators(actionCreators, dispatch) {
-  const ret = {};
-  for (let key in actionCreators) {
-    ret[key] = function (...args) {
-      const actionCreator = actionCreators[key];
-      const action = actionCreator(...args);
-      dispatch(action);
-    };
-  }
-
-  return ret;
-}
-
-/* function combineReducers(reducers) {
-  return function reducer(state, action) {
-    const changed = {};
-    for (let key in reducers) {
-      changed[key] = reducers[key](state[key], action);
-    }
-    return {
-      ...state,
-      ...changed
-    };
-  };
-} */
-
 // function Control(props) {
 const Control = memo((props) => {
-  console.log("props", props);
+  // console.log("props", props);
   const { addTodo } = props;
   const inputRef = useRef();
 
@@ -93,7 +67,7 @@ function TodoItem(props) {
   );
 }
 function Todos(props) {
-  console.log("props", props);
+  // console.log("props", props);
   const { removeTodo, toggleTodo, todos } = props;
   return (
     <ul>
@@ -148,6 +122,7 @@ function TodoList() {
   return (
     <div className="todo-list">
       <Control {...bindActionCreators({ addTodo: createAdd }, dispatch)} />
+      <hr />
       <Todos
         todos={todos}
         {...bindActionCreators(
@@ -157,6 +132,18 @@ function TodoList() {
       />
     </div>
   );
+}
+
+function bindActionCreators(actionCreators, dispatch) {
+  const ret = {};
+  for (let key in actionCreators) {
+    ret[key] = function (...args) {
+      // const actionCreator = actionCreators[key];
+      const action = actionCreators[key](...args);
+      dispatch(action);
+    };
+  }
+  return ret;
 }
 
 const reducers = {
@@ -194,16 +181,31 @@ const reducers = {
   }
 };
 
-const combineReducers = (reducers) => {
+function combineReducers(reducers) {
+  return (state, action) => {
+    const changed = {};
+    for (let key in reducers) {
+      changed[key] = reducers[key](state[key], action);
+    }
+    return {
+      ...state,
+      ...changed
+    };
+  };
+}
+
+const reducer = combineReducers(reducers);
+// console.log(reducer);
+export default TodoList;
+
+/* const combineReducers = (reducers) => {
   return (state = {}, action) =>
     Object.keys(reducers).reduce((nextState, key) => {
       // 这种写法有一个前提，就是 State 的属性名必须与子 Reducer 同名。
       nextState[key] = reducers[key](state[key], action);
       return { ...state, ...nextState };
     }, {});
-};
-
-const reducer = combineReducers(reducers);
+}; */
 
 /* function reducer(state, action) {
   const { type, payload } = action;
@@ -243,5 +245,3 @@ const reducer = combineReducers(reducers);
       return state;
   }
 } */
-
-export default TodoList;

@@ -10,11 +10,9 @@ let store = {
 };
 
 function combineReducers(reducers) {
-  console.log("reducers", reducers);
   return (state, action) => {
     const changed = {};
     for (let key in reducers) {
-      console.log("state[key]", state[key]);
       changed[key] = reducers[key](state[key], action);
     }
     return {
@@ -24,31 +22,7 @@ function combineReducers(reducers) {
   };
 }
 
-/* const combineReducers = (reducers) => {
-  console.log("reducers", reducers);
-  return (state = {}, action) => {
-    return Object.keys(reducers).reduce((nextState, key) => {
-      nextState[key] = reducers[key](state[key], action);
-      return { ...state, ...nextState };
-    }, {});
-  };
-}; */
-function bindActionCreators(actionCreators, dispatch) {
-  const ret = {};
-  for (let key in actionCreators) {
-    ret[key] = function (...args) {
-      const actionCreator = actionCreators[key];
-      // console.log(args);
-      const action = actionCreator(...args);
-      dispatch(action);
-    };
-  }
-  // console.log("ret", ret);
-  return ret;
-}
-
 function Control(props) {
-  console.log("Control--props", props);
   const { addTodo } = props;
   const inputRef = useRef();
 
@@ -103,7 +77,6 @@ function TodoItem(props) {
   );
 }
 function Todos(props) {
-  console.log("Todos-props33", props);
   const { removeTodo, toggleTodo, todos } = props;
   return (
     <ul>
@@ -119,7 +92,17 @@ function Todos(props) {
     </ul>
   );
 }
-
+function bindActionCreators(actionCreators, dispatch) {
+  const ret = {};
+  for (let key in actionCreators) {
+    ret[key] = function (...args) {
+      const action = actionCreators[key](...args);
+      dispatch(action);
+    };
+  }
+  // console.log("ret", ret);
+  return ret;
+}
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [incrementCount, setIncrementCount] = useState(0);
