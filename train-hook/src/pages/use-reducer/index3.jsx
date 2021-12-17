@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 /* function Example() {
   const [count, setCount] = useState(0);
@@ -70,10 +70,17 @@ function SearchResults() {
     let ignore = false;
 
     async function fetchData() {
-      const result = await axios(
+      /* const result = await axios(
         "https://hn.algolia.com/api/v1/search?query=" + query
       );
-      if (!ignore) setData(result.data);
+      if (!ignore) setData(result.data); */
+
+      const result = await fetch(
+        "https://hn.algolia.com/api/v1/search?query=" + query
+      ).then((res) => {
+        return res.json();
+      });
+      if (!ignore) setData(result);
     }
 
     fetchData();

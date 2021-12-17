@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
 export default function WrapParent(props) {
-  console.log("parent--props", props);
-
   useEffect(() => {
     console.log("Wrap--Parent");
-  });
+  }, []);
+
+  console.log("parent--props", props);
   // return <div className="parent" children={props.children} />;
   return (
     <div className="parent">

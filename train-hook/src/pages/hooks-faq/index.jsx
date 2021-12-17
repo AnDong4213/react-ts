@@ -7,12 +7,13 @@ function Example() {
   function handleAlertClick() {
     setTimeout(() => {
       console.log(count, countnow.current);
-    }, 2000);
+    }, 100);
   }
 
   const testRef = useCallback((node) => {
     if (node) {
       console.log("node", node.className);
+      console.log("node", node.getBoundingClientRect());
     }
   }, []);
   const testRef2 = useRef(null);
@@ -62,7 +63,7 @@ function Example() {
   useEffect(() => {
     const id = setInterval(() => {
       console.log(909);
-      setCount((count) => count + 1); // 这个 effect 依赖于 `count` state
+      setCount(count + 1); // 这个 effect 依赖于 `count` state
     }, 1000);
     return () => {
       console.log("删除");
@@ -71,10 +72,9 @@ function Example() {
   }, []); // 🔴 Bug: `count` 没有被指定为依赖
 
   return <h1>{count}</h1>;
-}
- */
+} */
 
-function Counter() {
+/* function Counter() {
   const [count, setCount] = useState(0);
   useEffect(() => {
     console.log(0);
@@ -89,7 +89,7 @@ function Counter() {
 
   return <h1>{count}</h1>;
 }
-
+ */
 function App1() {
   const cbRef = useRef(() => alert("init"));
   const cb = cbRef.current;
@@ -100,11 +100,11 @@ function App1() {
       <button onClick={() => (cbRef.current = () => alert("update"))}>
         应用
       </button>
-      {/* <button onClick={cb()}>乐乐1</button>  直接运行函数 */}
+      <button onClick={cb()}>乐乐1-1</button> 直接运行函数
       {/* <button onClick={cb.current()}>乐乐1</button>  报错  TypeError: cb.current is not a function */}
       <button onClick={cb.current}>乐乐1</button>
       <button onClick={() => cbRef.current()}>乐乐2</button>
     </div>
   );
 }
-export default App1;
+export default Example;

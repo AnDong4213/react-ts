@@ -2,24 +2,23 @@ import React, {
   useImperativeHandle,
   forwardRef,
   useRef,
-  createRef
+  createRef,
+  useEffect
 } from "react";
-import { useEffect } from "react";
 
 /* class CustomTextInput extends React.Component {
   constructor(props) {
     super(props);
     // 创建一个 ref 来存储 textInput 的 DOM 元素
-    this.textInput = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
+    this.textInput = createRef();
   }
 
-  focusTextInput() {
+  focusTextInput = () => {
     // 直接使用原生 API 使 text 输入框获得焦点
     // 注意：我们通过 "current" 来访问 DOM 节点
     this.textInput.current.focus();
     console.log(this.textInput.current);
-  }
+  };
 
   render() {
     // 告诉 React 我们想把 <input> ref 关联到
@@ -40,7 +39,7 @@ import { useEffect } from "react";
 class AutoFocusTextInput extends React.Component {
   constructor(props) {
     super(props);
-    this.textInput = React.createRef();
+    this.textInput = createRef();
   }
 
   componentDidMount() {
@@ -104,25 +103,31 @@ export default CustomTextInput; */
   componentDidMount() {
     console.log(this.sss.current);
     this.sss.current.setAttribute("id", "qqq");
+    this.sss.current.style.color = "red";
+    this.sss.current.style.backgroundColor = "#ccc";
   }
 
   render() {
     return (
       <div>
         <FancyButton age={99} ref={this.sss}>
-          Click me!2
+          <span>Click me!2</span>
         </FancyButton>
       </div>
     );
   }
-} */
+}
+export default ForwardRef; */
 
-/* const FancyButton = React.forwardRef((props, ref) => {
+/* const FancyButton = forwardRef((props, ref) => {
   console.log(props);
   return (
-    <button ref={ref} className="FancyButton">
-      {props.children}
-    </button>
+    <div>
+      <h2>哈哈</h2>
+      <button ref={ref} className="FancyButton">
+        {props.children}
+      </button>
+    </div>
   );
 });
 
@@ -132,6 +137,7 @@ function ForwardRef2() {
   useEffect(() => {
     console.log(sss.current);
     sss.current.setAttribute("id", "qqq");
+    sss.current.style.color = "red";
   }, []);
 
   return (
@@ -177,17 +183,19 @@ const FancyInput = forwardRef((props, ref) => {
   );
 });
 const FancyInput2 = forwardRef((props, ref) => {
+  const h2Ref = useRef();
+
   useImperativeHandle(ref, () => ({
     focus: () => {
       console.log(99);
     },
-    setValue: (txt) => {
-      console.log(44);
+    setColor: (c) => {
+      h2Ref.current.style.color = c;
     }
   }));
   return (
     <div>
-      <h2>{JSON.stringify(props)}</h2>
+      <h2 ref={h2Ref}>{JSON.stringify(props)}</h2>
     </div>
   );
 });
@@ -202,12 +210,13 @@ function Refs() {
     inputRef.current.setValue("bbc");
 
     inputRef2.current.focus();
+    inputRef2.current.setColor("red");
   }, []);
 
   return (
     <div>
       <FancyInput age={23} ref={inputRef} />
-      <FancyInput2 age={23} ref={inputRef2} />
+      <FancyInput2 age={100} ref={inputRef2} />
     </div>
   );
 }
