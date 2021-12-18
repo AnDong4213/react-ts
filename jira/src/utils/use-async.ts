@@ -83,9 +83,10 @@ export const useAsync = <D>(
       safeDispatch({ stat: "loading" });
       try {
         const data = await promise;
+        // console.log(data);
         setData(data);
         return data;
-      } catch (error) {
+      } catch (error: any) {
         console.log("error", error);
         setError(error);
         // catch会消化异常，如果不主动抛出，外面是接收不到异常的

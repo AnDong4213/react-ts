@@ -19,7 +19,7 @@ export const LoginScreen = ({
     // login(values);
     try {
       await run(login(values));
-    } catch (error) {
+    } catch (error: any) {
       // console.log(error);
       onError(error);
     }
