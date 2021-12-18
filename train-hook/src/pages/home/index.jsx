@@ -17,12 +17,14 @@ function Home({
   return (
     <section>
       <div>Home</div>
-      <h4>{haha}</h4>
-      <h4>{hehe}</h4>
+      <h2>{haha}</h2>
+      <h3 style={{ color: "red" }}>{hehe}</h3>
       <h4>{hihi}</h4>
       <input onChange={handleInputChange} value={inputValue} />
       <button onClick={handleClick}>提交</button>
-      <button onClick={handleCustomItem}>异步提交</button>
+      <button onClick={(e) => handleCustomItem(e, "other", "thrid")}>
+        异步提交
+      </button>
       <ul>
         {list?.map((item, index) => {
           return (
@@ -46,22 +48,21 @@ function Home({
 }
 
 // 不能使用 return action;
-const handleInputChange = (e) => (dispatch) => {
+/* const handleInputChange = (e) => (dispatch) => {
   const action = {
     type: "change_input_value",
     value: e.target.value
   };
 
   dispatch(action);
-};
-/* const handleInputChange = (e) => {
+}; */
+const handleInputChange = (e) => {
   const action = {
     type: "change_input_value",
     value: e.target.value
   };
-
   return action;
-}; */
+};
 
 const handleClick = () => {
   const action = {

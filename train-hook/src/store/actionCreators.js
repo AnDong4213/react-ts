@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const handleCustomItem = () => async (dispatch, state, obj) => {
+/* export const handleCustomItem = (e, er) => async (dispatch, state, obj) => {
+  console.log("para", e.target.tagName);
+  console.log("para", er);
   console.log("state", state());
   console.log("obj", obj); // applyMiddleware(thunk.withExtraArgument({ api })) obj才有值
   const url = await axios.get(
@@ -12,6 +14,24 @@ export const handleCustomItem = () => async (dispatch, state, obj) => {
     type: "add_item_custom",
     item
   });
+}; */
+
+export const handleCustomItem = (e, ...er) => {
+  return async (dispatch, state, obj) => {
+    console.log("para", e.target.tagName);
+    console.log("para", er);
+    console.log("state", state());
+    console.log("obj", obj); // applyMiddleware(thunk.withExtraArgument({ api })) obj才有值
+    const url = await axios.get(
+      "https://api.thecatapi.com/v1/images/search?limit=1"
+    );
+    const item = url.data[0].url;
+
+    dispatch({
+      type: "add_item_custom",
+      item
+    });
+  };
 };
 
 /* export const getTodoList = () => {

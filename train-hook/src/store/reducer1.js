@@ -1,5 +1,5 @@
 const defaultState = {
-  inputValue: "",
+  inputValue: "rr",
   list: ["a", "b"],
   haha: "我是reducer1自定义的哈哈"
 };
