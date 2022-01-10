@@ -217,6 +217,12 @@ function Refs() {
     <div>
       <FancyInput age={23} ref={inputRef} />
       <FancyInput2 age={100} ref={inputRef2} />
+      <div>
+        {(() => {
+          console.log("inputRef");
+        })()}
+        <p>data: </p>
+      </div>
     </div>
   );
 }

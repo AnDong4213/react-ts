@@ -38,6 +38,10 @@ const HooksFaq = lazy(() =>
 );
 const Refs = lazy(() => import(/* webpackChunkName: 'refs' */ "./pages/refs"));
 
+const DataFlow = lazy(() =>
+  import(/* webpackChunkName: 'data-flow' */ "./pages/data-flow")
+);
+
 class App extends Component {
   render() {
     return (
@@ -79,6 +83,9 @@ class App extends Component {
             </li>
             <li>
               <Link to="/refs">Refs</Link>
+            </li>
+            <li>
+              <Link to="/data-flow">DataFlow</Link>
             </li>
           </ul>
 
@@ -122,6 +129,9 @@ class App extends Component {
                 </Route>
                 <Route path="/refs">
                   <Refs />
+                </Route>
+                <Route path="/data-flow">
+                  <DataFlow />
                 </Route>
               </Switch>
             </Suspense>
