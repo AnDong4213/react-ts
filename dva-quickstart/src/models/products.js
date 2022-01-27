@@ -11,11 +11,13 @@ export default {
       return state.filter((item) => item.id !== id);
     },
     add33(state, { payload }) {
+      console.log(payload)
       return [...state, payload];
     },
   },
   effects: {
     *addList229({ payload }, { call, put }) {
+      console.log(payload)
       const response = yield call(addListApi);
       // yield console.log(response);
 

@@ -5,6 +5,7 @@ export default {
   state: [
     { name: "小玉", id: 1 },
     { name: "牛", id: 2 },
+    { name: "andong", id: 3 },
   ],
   reducers: {
     delete33(state, { payload: id }) {
