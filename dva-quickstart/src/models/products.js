@@ -16,9 +16,11 @@ export default {
     },
   },
   effects: {
-    *addList229({ payload }, { call, put }) {
-      console.log(payload)
+    *addList229(action, { call, put, select }) {
+      console.log(action)
       const response = yield call(addListApi);
+      const pro = yield select(state => state.products);
+      console.log(pro)
       // yield console.log(response);
 
       yield put({

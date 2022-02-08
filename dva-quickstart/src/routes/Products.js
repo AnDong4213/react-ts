@@ -7,7 +7,19 @@ const Products = (props) => {
   const { dispatch, products = [], tests } = props;
   useEffect(() => {
     console.log("tests", tests);
-  });
+  }, []);
+  useEffect(() => {
+    const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout, 'done'));
+    /* const fetchData = async (ms) => {
+      await delay(ms)
+      console.log(90)
+    }
+    fetchData(2000) */
+
+    delay(2000).then(val => {
+      console.log(val)
+    })
+  }, [])
   function handleDelete(id) {
     dispatch({
       type: "products/delete33",
