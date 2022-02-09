@@ -16,6 +16,7 @@ export default defineConfig({
     // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,
     siderWidth: 208,
+    // siderWidth: 170,
     ...defaultSettings,
   },
   // https://umijs.org/zh-CN/plugins/plugin-locale
@@ -36,7 +37,7 @@ export default defineConfig({
   routes: [
     {
       path: '/user',
-      layout: false,
+      component: '../layouts/UserLayout',
       routes: [
         {
           path: '/user/login',
@@ -306,6 +307,36 @@ export default defineConfig({
           path: '/editor/koni',
           component: './editor/koni',
         },
+      ],
+    },
+    {
+      name: 'newPage1',
+      icon: 'form',
+      path: '/newPage1',
+      component: './newPage1'
+    },
+    {
+      name: 'newPage2',
+      icon: 'profile',
+      path: '/newPage2',
+      routes: [
+        {
+          path: '/newPage2',
+          redirect: '/newPage2/pageC1',
+        },
+        {
+          name: 'pageC1',
+          icon: 'smile',
+          hideInMenu: false,
+          path: '/newPage2/pageC1',
+          component: './newPage2/pageC1',
+        },
+        {
+          name: 'pageC2',
+          icon: 'smile',
+          path: '/newPage2/pageC2',
+          component: './newPage2/pageC2',
+        }
       ],
     },
     {
