@@ -313,7 +313,13 @@ export default defineConfig({
       name: 'newPage1',
       icon: 'form',
       path: '/newPage1',
-      component: './newPage1'
+      component: './newPage1',
+      // target: '_blank',
+      layout: {
+        hideMenu: false,
+        hideNav: false,
+        hideFooter: false,
+      }
     },
     {
       name: 'newPage2',
