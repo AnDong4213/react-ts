@@ -6,6 +6,7 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { notification, message } from 'antd'
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -15,9 +16,46 @@ export const initialStateConfig = {
   loading: <PageLoading />,
 };
 
+const authHeaderInterceptor = (url: string, options: any) => {
+  const authHeader = { Authorization: 'Bearer eyJhbGciOiJIUzI1Ni' };
+  return {
+    url: `${url}`,
+    options: { ...options, interceptors: true, headers: authHeader },
+  };
+};
+const demoResponseInterceptors = (response: Response, options: any) => {
+  // response.headers.append('interceptors', 'yes yo');
+  /* const codeMaps = {
+    400: '请求失败',
+    502: '网关错误。',
+    503: '服务不可用，服务器暂时过载或维护。',
+    504: '网关超时。',
+  };
+  if (response.status && codeMaps[response.status] !== 200) {
+    message.error(codeMaps[response.status]);
+  } */
+  return response;
+};
+
+export const request: any = {
+  errorHandler: (error: any) => {
+    // const { messages } = getIntl(getLocale());
+    // const { response } = error;
+    notification.error({
+      description: '您的网络发生异常，无法连接服务器',
+      message: '网络异常',
+    });
+    throw error;
+  },
+  // 新增自动添加AccessToken的请求前拦截器
+  requestInterceptors: [authHeaderInterceptor],
+  responseInterceptors: [demoResponseInterceptors]
+};
+
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
+// getInitialState方法返回的数据最后会被默认注入到一个 namespace 为 @@initialState  的 model 中。可以通过 useModel  这个 hook 来消费它：
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
@@ -40,12 +78,13 @@ export async function getInitialState(): Promise<{
       fetchUserInfo,
       currentUser,
       settings: {},
-      userName2: '安东'
+      userName2: '京管云-不是登录'
     };
   }
   return {
     fetchUserInfo,
     settings: {},
+    userName2: '京管云-是登录'
   };
 }
 
