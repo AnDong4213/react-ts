@@ -9,7 +9,7 @@ export default (): React.ReactNode => {
     const message = useModel('demo')
     const { initialState } = useModel('@@initialState')
     // const { data } = useRequest(getNotices);
-    const { data, error, loading } = useRequest(() => {
+    const { data, loading } = useRequest(() => {
         return getCatLists({
             params: {
                 limit: 1
@@ -28,7 +28,6 @@ export default (): React.ReactNode => {
     })
 
     useEffect(() => {
-        console.log(data, error, loading)
         setCatList(data ?? [])
     }, [data])
 
