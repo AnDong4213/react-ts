@@ -53,4 +53,5 @@ export default {
   'menu.newPage2': '新页面2',
   'menu.newPage2.pageC1': '子页面1',
   'menu.newPage2.pageC2': '子页面2',
+  'menu.newPage2.pageC3': 'useRequest的使用',
 };

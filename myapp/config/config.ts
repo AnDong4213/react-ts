@@ -342,6 +342,12 @@ export default defineConfig({
           icon: 'smile',
           path: '/newPage2/pageC2',
           component: './newPage2/pageC2',
+        },
+        {
+          name: 'pageC3',
+          icon: 'smile',
+          path: '/newPage2/pageC3',
+          component: './newPage2/pageC3',
         }
       ],
     },
