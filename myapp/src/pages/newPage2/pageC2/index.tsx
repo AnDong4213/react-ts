@@ -183,7 +183,7 @@ export default (): React.ReactNode => {
                     persistenceKey: 'pro-table-singe-demos',
                     persistenceType: 'localStorage',
                 }}
-                rowKey="id"
+                // rowKey="id"
                 search={{
                     labelWidth: 'auto',
                     searchText: '查询ing'
