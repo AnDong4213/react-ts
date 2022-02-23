@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier src/*.{jsx,js,css,md} --write && eslint src/*.{jsx,js} --fix"
+    "format": "prettier src/*.{jsx,js,css,md} --write && eslint src/*.{jsx,js} --fix",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -29,16 +30,12 @@
     ],
     "rules": {}
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js, css, md, jsx}": [
+    "*.{js, css, md, jsx, tsx, ts}": [
       "prettier --write",
       "git add"
-    ]
+    ],
+    "*.--fix": "prettier --write"
   },
   "browserslist": {
     "production": [
