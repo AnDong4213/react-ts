@@ -40,3 +40,10 @@
 .router-switch {
   margin: 40px;
 }
+
+.router-demo1 ul {
+  display: flex;
+}
+.router-demo1 ul li {
+  margin: 0 12px;
+}
