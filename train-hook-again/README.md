@@ -16,3 +16,5 @@
 #### `3-1 Context实现跨层级的组件数据传递`
 
 <font size=3 color=#666 face="黑体">示例</font>
+
+#### npm install --save-dev @commitlint/config-conventional @commitlint/cli
