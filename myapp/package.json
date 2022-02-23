@@ -118,5 +118,12 @@
   },
   "gitHooks": {
     "commit-msg": "fabric verify-commit"
-  }
+  },
+  "checkFiles": [
+    "src/**/*.js*",
+    "src/**/*.ts*",
+    "src/**/*.less",
+    "config/**/*.js*",
+    "scripts/**/*.js"
+  ]
 }

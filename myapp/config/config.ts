@@ -5,6 +5,7 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 
 const { REACT_APP_ENV } = process.env;
+console.log(process.env.REACT_APP_ENV, process.env.NODE_ENV)
 
 export default defineConfig({
   hash: true,
@@ -394,4 +395,29 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  define: {
+    FOO: 'bar',
+  },
+  chunks: ['vendors', 'umi'],
+  chainWebpack: function (config, { webpack }) {
+    config.merge({
+      optimization: {
+        splitChunks: {
+          chunks: 'all',
+          minSize: 30000,
+          minChunks: 3,
+          automaticNameDelimiter: '.',
+          cacheGroups: {
+            vendor: {
+              name: 'vendors',
+              test({ resource }: {resource: any}) {
+                return /[\\/]node_modules[\\/]/.test(resource);
+              },
+              priority: 10,
+            },
+          },
+        },
+      },
+    });
+  },
 });

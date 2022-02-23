@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { message, InputNumber } from 'antd';
 import { useModel, useRequest } from 'umi'
 // import { useRequest } from 'ahooks'
-import { getCatLists, catType, getDogLists } from './service'
+import type { catType} from './service';
+import { getCatLists, getDogLists } from './service'
 import styles from './index.less';
 
 export default (): React.ReactNode => {
@@ -29,15 +30,24 @@ export default (): React.ReactNode => {
     });
 
     // 通过 run(number) 来加载数据，通过 onSuccess 和 onError 来处理成功和失败。
-    const { loading: loading2, run: run2, data: data2 } = useRequest(getDogLists, {
+    // 如你触发了 run(1, 2, 3)，则 params 等于 [1, 2, 3]
+    const { loading: loading2, run: run2, data: data2, params: params2 } = useRequest(getDogLists, {
         manual: true,
         onSuccess: (result, params) => {
-            console.log(result)
-            console.log(params)
+            // console.log(result)
+            // console.log(params)
         },
         onError: (error) => {
             message.error(error.message);
         },
+        // 延迟 loading 变成 true 的时间，有效防止闪烁。
+         // loadingDelay: 300,
+         // 进入轮询模式
+        //  pollingInterval: 3000,
+        // ready 参数，当其值为 false 时，请求永远都不会发出。
+        // ready: false
+        // refreshDeps: [num]
+        cacheKey: 'cacheKey-demo'
     })
 
     const { add, minus } = useModel('counter', (ret: any) => {
@@ -53,7 +63,8 @@ export default (): React.ReactNode => {
     }, [data])
 
     useEffect(() => {
-        console.log(data2)
+        // console.log(data2)
+        console.log(params2)
         setCatList2(data2 || [])
     }, [data2])
 
@@ -105,7 +116,7 @@ export default (): React.ReactNode => {
                 {
                     catList2.length > 0 && catList2.map((item: any) => (
                         <div key={item.id}>
-                            <img style={contentStyle} src={item.url} alt={item.id} />
+                            <img className={styles.gray} style={contentStyle} src={item.url} alt={item.id} />
                         </div>
                     ))
                 }

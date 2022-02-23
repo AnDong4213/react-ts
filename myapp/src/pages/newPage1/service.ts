@@ -23,7 +23,7 @@ export async function getDogLists(num?: number) {
             limit: num
         }
     });
-    console.log(data)
+    // console.log(data)
     return { data }
     // return Promise.reject(new Error('接口出错'))
 }

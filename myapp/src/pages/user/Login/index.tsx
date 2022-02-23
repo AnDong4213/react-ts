@@ -35,6 +35,9 @@ const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const intl = useIntl();
+  console.log(process.env)
+  // @ts-ignore
+  console.log(FOO)
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
