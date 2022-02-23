@@ -9,6 +9,7 @@ const [test, setTest] = useState(10)
         <p>about</p>
         <p>{test}</p>
         <div><img src={logo} alt='' /><h3>我是图片</h3></div>
+        <div><img src={logo} alt='' /><h3>我是图片</h3></div>
     </section>
   )
 }
