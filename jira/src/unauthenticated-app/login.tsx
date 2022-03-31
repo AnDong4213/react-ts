@@ -2,6 +2,7 @@ import { useAuth } from "context/auth-context";
 import { useAsync } from "utils/use-async";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
+console.log(process.env);
 
 export const LoginScreen = ({
   onError,

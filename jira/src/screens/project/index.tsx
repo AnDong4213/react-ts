@@ -4,6 +4,7 @@ import { KanbanScreen } from "screens/kanban";
 import { EpicScreen } from "screens/epic";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
+console.log(process.env);
 
 const useRouteType = () => {
   const units = useLocation().pathname.split("/");
@@ -12,6 +13,8 @@ const useRouteType = () => {
 
 export const ProjectScreen = () => {
   const routeType = useRouteType();
+  console.log(process.env);
+
   return (
     <Container>
       <Aside>

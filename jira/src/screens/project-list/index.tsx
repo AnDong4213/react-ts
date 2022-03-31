@@ -30,6 +30,7 @@ export const ProjectListScreen = () => {
   // const debounceParam = useDebounce(param, 200);
   const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
+  console.log(process.env);
 
   const changeUrl = () => {
     setParam({ name: "YY" });
