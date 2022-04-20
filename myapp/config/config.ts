@@ -5,7 +5,7 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 
 const { REACT_APP_ENV } = process.env;
-console.log(process.env.REACT_APP_ENV, process.env.NODE_ENV)
+console.log(process.env.REACT_APP_ENV, process.env.NODE_ENV);
 
 export default defineConfig({
   hash: true,
@@ -320,7 +320,7 @@ export default defineConfig({
         hideMenu: false,
         hideNav: false,
         hideFooter: false,
-      }
+      },
     },
     {
       name: 'newPage2',
@@ -349,7 +349,7 @@ export default defineConfig({
           icon: 'smile',
           path: '/newPage2/pageC3',
           component: './newPage2/pageC3',
-        }
+        },
       ],
     },
     {
@@ -410,7 +410,7 @@ export default defineConfig({
           cacheGroups: {
             vendor: {
               name: 'vendors',
-              test({ resource }: {resource: any}) {
+              test({ resource }: { resource: any }) {
                 return /[\\/]node_modules[\\/]/.test(resource);
               },
               priority: 10,
@@ -418,6 +418,7 @@ export default defineConfig({
           },
         },
       },
+      devtool: 'eval-source-map',
     });
   },
 });
