@@ -11,16 +11,19 @@ export default {
       return state.filter((item) => item.id !== id);
     },
     add33(state, { payload }) {
-      console.log(payload)
+      console.log('payload', payload)
       return [...state, payload];
     },
   },
   effects: {
     *addList229(action, { call, put, select }) {
-      console.log(action)
+      console.log('action', action)
       const response = yield call(addListApi);
-      const pro = yield select(state => state.products);
-      console.log(pro)
+      // const pro = yield select(state => state.products);
+      const pro = yield select(state => {
+        return state.products.filter(a => a.height)
+      });
+      console.log('pro', pro)
       // yield console.log(response);
 
       yield put({
