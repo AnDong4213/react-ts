@@ -9,3 +9,4 @@ package-lock.json
 #ignore .project created by Hbuilder
 .project
 .vscode/
+myapp/
